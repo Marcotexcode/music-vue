@@ -1,0 +1,42 @@
+
+.cont {
+    display: block;
+    height: calc(100vh - 55.03px);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    transition:  1.3s;
+    position: relative;
+    background: #343a40;
+
+    .button {
+        font-size: 30px;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        cursor: pointer;
+        color: #b7b7b7;
+    }
+    .unordered_list {
+        margin-top: 50px;
+
+        .list {
+            list-style: none;
+            margin: 20px 0px 20px 0px;
+
+            .link {
+                color: #000;
+                text-decoration: none;
+                font-size: 20px;
+
+                .icon {
+                    font-size: 25px;
+                    display: inline;
+                    color: #b7b7b7;
+                }
+                .text {
+                    margin-left: 10px;
+                    color: #b7b7b7;
+                }
+            }
+        }
+    }
+}
