@@ -5438,12 +5438,17 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", {
-    staticClass: "container"
-  }, [_vm._v("\n    Home\n")]);
+  return _vm._m(0);
 };
 
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
+    staticClass: "container"
+  }, [_c("h2", [_vm._v("Home")])]);
+}];
 render._withStripped = true;
 
 
@@ -5484,47 +5489,38 @@ var render = function render() {
     staticClass: "unordered_list"
   }, [_c("li", {
     staticClass: "list"
-  }, [_c("a", {
-    staticClass: "link",
-    attrs: {
-      href: ""
-    }
-  }, [_c("i", {
-    staticClass: "fa-solid icon fa-house"
-  }), _vm._v(" "), _c("transition", [_vm.larghezza === 250 ? _c("router-link", {
-    staticClass: "text",
+  }, [_c("router-link", {
+    staticClass: "text link",
     attrs: {
       to: "/home"
     }
-  }, [_vm._v("Home")]) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("li", {
-    staticClass: "list"
-  }, [_c("a", {
-    staticClass: "link",
-    attrs: {
-      href: ""
-    }
   }, [_c("i", {
-    staticClass: "fa-solid icon fa-calendar"
-  }), _vm._v(" "), _c("transition", [_vm.larghezza === 250 ? _c("router-link", {
-    staticClass: "text",
+    staticClass: "fa-solid icon fa-house"
+  }), _vm._v(" "), _c("transition", [_vm.larghezza === 250 ? _c("span", {
+    staticClass: "text"
+  }, [_vm._v("Home")]) : _vm._e()])], 1)], 1), _vm._v(" "), _c("li", {
+    staticClass: "list"
+  }, [_c("router-link", {
+    staticClass: "text link",
     attrs: {
       to: "/calendario"
     }
-  }, [_vm._v("Calendario")]) : _vm._e()], 1)], 1)]), _vm._v(" "), _c("li", {
-    staticClass: "list"
-  }, [_c("a", {
-    staticClass: "link",
-    attrs: {
-      href: ""
-    }
   }, [_c("i", {
-    staticClass: "fa-solid icon fa-music"
-  }), _vm._v(" "), _c("transition", [_vm.larghezza === 250 ? _c("router-link", {
-    staticClass: "text",
+    staticClass: "fa-solid icon fa-calendar"
+  }), _vm._v(" "), _c("transition", [_vm.larghezza === 250 ? _c("span", {
+    staticClass: "text"
+  }, [_vm._v("Calendario")]) : _vm._e()])], 1)], 1), _vm._v(" "), _c("li", {
+    staticClass: "list"
+  }, [_c("router-link", {
+    staticClass: "text link",
     attrs: {
       to: "/band"
     }
-  }, [_vm._v("Band")]) : _vm._e()], 1)], 1)])])]);
+  }, [_c("i", {
+    staticClass: "fa-solid icon fa-music"
+  }), _vm._v(" "), _c("transition", [_vm.larghezza === 250 ? _c("span", {
+    staticClass: "text"
+  }, [_vm._v("Band")]) : _vm._e()])], 1)], 1)])]);
 };
 
 var staticRenderFns = [];
@@ -5662,8 +5658,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Calendario_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Calendario.vue */ "./resources/js/components/Calendario.vue");
 /* harmony import */ var _components_Band_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Band.vue */ "./resources/js/components/Band.vue");
 /* harmony import */ var _components_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Home.vue */ "./resources/js/components/Home.vue");
+// Importo i vari componenti vue
 
 
+ // Inserisco le rotte dei vari componenti vue
 
 var routes = [{
   path: '/calendario',

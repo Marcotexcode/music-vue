@@ -3,21 +3,33 @@
         <i class="fa-solid button fa-arrow-right" v-if="larghezza == 70" @click="apri"></i>
         <i class="fa-solid button fa-xmark" v-if="larghezza == 250" @click="chiudi"></i>
         <ul class="unordered_list">
-            <li class="list"><a class="link" href=""><i class="fa-solid icon fa-house"></i>
-                <transition>
-                    <router-link to="/home" class="text" v-if="larghezza === 250">Home</router-link>
-                </transition>
-            </a></li>
-            <li class="list"><a class="link" href=""><i class="fa-solid icon fa-calendar"></i>
-                <transition>
-                   <router-link to="/calendario" class="text" v-if="larghezza === 250">Calendario</router-link>
-                </transition>
-            </a></li>
-            <li class="list"><a class="link" href=""><i class="fa-solid icon fa-music"></i>
-                <transition>
-                    <router-link to="/band" class="text" v-if="larghezza === 250">Band</router-link>
-                </transition>
-            </a></li>
+
+            <li class="list">
+                <router-link to="/home" class="text link">
+                    <i class="fa-solid icon fa-house"></i>
+                    <transition>
+                        <span class="text" v-if="larghezza === 250">Home</span>
+                    </transition>
+                </router-link>
+            </li>
+
+            <li class="list">
+               <router-link to="/calendario" class="text link">
+                    <i class="fa-solid icon fa-calendar"></i>
+                    <transition>
+                        <span class="text" v-if="larghezza === 250">Calendario</span>
+                    </transition>
+                </router-link>
+            </li>
+
+            <li class="list">
+                <router-link to="/band" class="text link">
+                    <i class="fa-solid icon fa-music"></i>
+                    <transition>
+                        <span class="text" v-if="larghezza === 250">Band</span>
+                    </transition>
+                </router-link>
+            </li>
         </ul>
     </div>
 </template>

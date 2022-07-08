@@ -6,11 +6,11 @@
 
 <script>
 
+    export default ({
+        name: "Band",
 
-export default ({
-    name: "Band",
+    });
 
-});
 </script>
 
 <style lang="scss" scoped>
