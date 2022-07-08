@@ -10,16 +10,18 @@ window.Vue = require('vue').default;
 
 import VueRouter from 'vue-router'
 
-
+//Prende il file index.js nella cartella routes che sarebbe il file dove inserisco tutte le rotte dei vari componenti
 import { routes } from './routes';
 
 Vue.use(VueRouter)
 
+//Registra i percorsi
 export const router = new VueRouter({
     base: '/',
     mode: 'history',
     routes
 });
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

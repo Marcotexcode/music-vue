@@ -12,7 +12,10 @@ class PagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+
+    // In questo controller ho definito il medoto invocke
+    // In questo modo l'intera classe del controller esegue una singola azione
+    public function __invoke()
     {
         return view('home');
     }

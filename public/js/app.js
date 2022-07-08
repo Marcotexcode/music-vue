@@ -5577,9 +5577,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js")["default"]);
+ //Prende il file index.js nella cartella routes che sarebbe il file dove inserisco tutte le rotte dei vari componenti
 
 
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]); //Registra i percorsi
+
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   base: '/',
   mode: 'history',
