@@ -4,7 +4,7 @@ import Calendario from '../components/Calendario.vue';
 import Band from '../components/Band.vue';
 import Home from '../components/Home.vue';
 
-// Inserisco le rotte dei vari componenti vue
+// Esporto le rotte dei vari componenti vue
 export const routes = [
     {
 		path: '/calendario',
