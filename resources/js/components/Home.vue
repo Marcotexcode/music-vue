@@ -1,19 +1,16 @@
 <template>
     <div class="container">
-        <Calendario/>
+        Home
     </div>
 </template>
 
 <script>
 
-import Calendario from '../components/Calendario';
 
 
 export default ({
-    name: "Main",
-    components: {
-        Calendario,
-    }
+    name: "Home",
+
 });
 </script>
 
