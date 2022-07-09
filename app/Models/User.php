@@ -8,9 +8,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    const NON_HA_UNA_BAND  = 0; // Se non ha una band puo crearla
+    const HA_UNA_BAND      = 1; // Se ha già una band non può crearne un'altra
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'hasBand',
     ];
 
     /**

@@ -17,6 +17,10 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
+    // Creo una costante per quando l'utente si registra poi verra reindirizzato alla pagina di
+    // creazione band
+    public const CREA_BAND = '/createBand';
+
     public const HOME = '/home';
 
     /**

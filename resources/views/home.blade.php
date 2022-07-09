@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="d-flex">
-    <div id="app">
+    <div id="app" >
         <app-component></app-component>
      </div>
-     <div>
+     <div class="w-100">
         <router-view></router-view>
      </div>
 </div>

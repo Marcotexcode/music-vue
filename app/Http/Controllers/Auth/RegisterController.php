@@ -29,7 +29,9 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+
+    // Una volta registrato l'utente verra reindirizzato alla creazione band
+    protected $redirectTo = RouteServiceProvider::CREA_BAND;
 
     /**
      * Create a new controller instance.
@@ -68,6 +70,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'hasBand' => User::NON_HA_UNA_BAND,
         ]);
     }
 }
