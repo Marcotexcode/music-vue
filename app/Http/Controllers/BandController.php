@@ -14,7 +14,6 @@ class BandController extends Controller
     {
         $bands = Band::where('user_id', Auth::user()->id)->get();
 
-        // cambiare il return che porta al componente band.vue tramite json
         return response()->json($bands);
     }
 
@@ -25,9 +24,19 @@ class BandController extends Controller
             'phoneBand' => 'required',
         ]);
 
+        $imageName = time() . '-' . $request->nameBand . '.' .
+
+
+        $request->image->extension();
+
+        $request->image->move(public_path('image'), $imageName);
+
+
+
         $band = Band::create([
             'name_band' => $request->input('nameBand'),
             'phone_band' => $request->input('phoneBand'),
+            'image_path' => $imageName,
             'user_id' => Auth::user()->id,
         ]);
 

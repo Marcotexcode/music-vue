@@ -15,6 +15,7 @@ class Band extends Model
         'name_band',
         'phone_band',
         'user_id',
+        'image_path'
     ];
 
     public function user()

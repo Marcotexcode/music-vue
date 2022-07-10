@@ -5,7 +5,8 @@
                 <h2 class="text-uppercase">{{lista.name_band}}</h2>
             </div>
             <div class="card-body">
-                <h5 class="card-title">Immagine</h5>
+                <h5 class="card-title">{{lista.image_path}}</h5>
+                <img class="img-band" :src="imageBand" alt="Card image cap">
                 <p class="card-text"> Telefono: {{lista.phone_band}}</p>
                 <p class="card-text">Descrizione</p>
                 <a href="#" class="btn btn-primary">Modifica</a>
@@ -20,7 +21,8 @@
 
         data() {
             return {
-                listaBand: []
+                listaBand: [],
+                imageBand: 0
             }
         },
 
@@ -33,6 +35,7 @@
                 axios.get('/lista-band')
                 .then(response => {
                     this.listaBand = response.data;
+                    this.imageBand = '/image/' + response.data[0].image_path;
                 });
             }
         }

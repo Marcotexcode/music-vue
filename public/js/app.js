@@ -5270,7 +5270,8 @@ __webpack_require__.r(__webpack_exports__);
   name: "Band",
   data: function data() {
     return {
-      listaBand: []
+      listaBand: [],
+      imageBand: 0
     };
   },
   created: function created() {
@@ -5282,6 +5283,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/lista-band').then(function (response) {
         _this.listaBand = response.data;
+        _this.imageBand = '/image/' + response.data[0].image_path;
       });
     }
   }
@@ -5405,7 +5407,13 @@ var render = function render() {
       staticClass: "card-body"
     }, [_c("h5", {
       staticClass: "card-title"
-    }, [_vm._v("Immagine")]), _vm._v(" "), _c("p", {
+    }, [_vm._v(_vm._s(lista.image_path))]), _vm._v(" "), _c("img", {
+      staticClass: "img-band",
+      attrs: {
+        src: _vm.imageBand,
+        alt: "Card image cap"
+      }
+    }), _vm._v(" "), _c("p", {
       staticClass: "card-text"
     }, [_vm._v(" Telefono: " + _vm._s(lista.phone_band))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
@@ -10756,7 +10764,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".glass[data-v-346d5aa0] {\n  background-color: rgba(255, 255, 255, 0.39);\n  -webkit-backdrop-filter: blur(5px);\n          backdrop-filter: blur(5px);\n}\n.bord[data-v-346d5aa0] {\n  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".glass[data-v-346d5aa0] {\n  background-color: rgba(255, 255, 255, 0.39);\n  -webkit-backdrop-filter: blur(5px);\n          backdrop-filter: blur(5px);\n}\n.bord[data-v-346d5aa0] {\n  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;\n}\n.img-band[data-v-346d5aa0] {\n  width: 40%;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
