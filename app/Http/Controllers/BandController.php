@@ -26,12 +26,9 @@ class BandController extends Controller
 
         $imageName = time() . '-' . $request->nameBand . '.' .
 
-
         $request->image->extension();
 
         $request->image->move(public_path('image'), $imageName);
-
-
 
         $band = Band::create([
             'name_band' => $request->input('nameBand'),
@@ -43,5 +40,18 @@ class BandController extends Controller
         // Se la band ha come user_id l'utente allora modifica hasBand a 1
         $user = User::where('id', $band->user_id)->update(['hasBand' => User::HA_UNA_BAND]);
         return redirect('band');
+    }
+
+    public function aggiornaBand(Request $request) 
+    {
+        $request->validate([
+            'name_band' => 'required',
+            'phone_band' => 'required',
+        ]);
+
+        $band = Band::where('id', $request->idBand)->update([
+            'name_band' => $request->name_band,
+            'phone_band' => $request->phone_band,
+        ]);
     }
 }

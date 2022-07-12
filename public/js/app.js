@@ -5276,26 +5276,39 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       listaBand: [],
-      imageBand: 0,
       view: 0
     };
   },
-  created: function created() {
-    this.getBand();
-  },
+  // Per aggiungere metodi a un'istanza del componente
   methods: {
     getBand: function getBand() {
       var _this = this;
 
       axios.get('/lista-band').then(function (response) {
+        if (_this.view == 0) {
+          console.log('ciso');
+        }
+
+        if (_this.view == 1) {
+          console.log('dfafdsfdfd');
+        }
+
         _this.listaBand = response.data;
-        _this.imageBand = '/image/' + response.data[0].image_path;
+        console.log(_this.listaBand);
       });
     },
     cambiaView: function cambiaView(valore) {
       this.view = valore;
     }
-  }
+  },
+  // Chiamato dopo che l'istanza ha terminato l'elaborazione di tutte le opzioni relative allo stato.
+  created: function created() {
+    this.getBand();
+  } // Chiamato dopo che il componente ha aggiornato il proprio albero DOM a causa di un cambiamento di stato reattivo.
+  // updated () {
+  //     this.getBand()
+  // },
+
 });
 
 /***/ }),
@@ -5347,17 +5360,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ModificaBand",
-  props: ['cambiaView', 'datiBand'] // data(){
-  //     return {
-  //         post:{}
-  //     }
-  // },
-  // methods: {
-  //     addPost(){
-  //         console.log(this.post);
-  //     }
-  // }
+  props: ['cambiaView', 'datiBand'],
+  data: function data() {
+    return {
+      band: []
+    };
+  },
+  methods: {
+    modificaBand: function modificaBand() {
+      var _this = this;
 
+      axios.post('/aggiorna-band', {
+        idBand: this.datiBand[0].id,
+        name_band: this.band.name_band,
+        phone_band: this.band.phone_band
+      }).then(function (response) {
+        _this.$forceUpdate();
+
+        _this.$emit('cambiaView', 0);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -5442,12 +5465,10 @@ var render = function render() {
       staticClass: "text-uppercase"
     }, [_vm._v(_vm._s(lista.name_band))])]), _vm._v(" "), _c("div", {
       staticClass: "card-body"
-    }, [_c("h5", {
-      staticClass: "card-title"
-    }, [_vm._v(_vm._s(lista.image_path))]), _vm._v(" "), _c("img", {
+    }, [_c("img", {
       staticClass: "img-band",
       attrs: {
-        src: _vm.imageBand,
+        src: "/image/" + lista.image_path,
         alt: "Card image cap"
       }
     }), _vm._v(" "), _c("p", {
@@ -5566,56 +5587,80 @@ var render = function render() {
     staticClass: "container mt-5"
   }, [_c("div", {
     staticClass: "card glass text-center"
-  }, [_c("h2", [_vm._v("Modifica Band")]), _vm._v(" "), _c("p", [_vm._v("Dati BandPassati: " + _vm._s(_vm.datiBand))]), _vm._v(" "), _c("form", [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-primary mt-5",
-    attrs: {
-      type: "submit"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.$emit("cambiaView", 0);
+  }, [_c("h2", [_vm._v("Modifica Band")]), _vm._v(" "), _vm._l(_vm.datiBand, function (lista) {
+    return _c("form", {
+      key: lista.id,
+      on: {
+        submit: function submit($event) {
+          $event.preventDefault();
+          return _vm.modificaBand.apply(null, arguments);
+        }
       }
-    }
-  }, [_vm._v("Modifica")])])])]);
+    }, [_c("div", {
+      staticClass: "form-group"
+    }, [_c("label", {
+      attrs: {
+        "for": "exampleInputEmail1"
+      }
+    }, [_vm._v("Nome band")]), _vm._v(" "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.band.name_band,
+        expression: "band.name_band"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "text"
+      },
+      domProps: {
+        value: _vm.band.name_band
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(_vm.band, "name_band", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c("div", {
+      staticClass: "form-group"
+    }, [_c("label", {
+      attrs: {
+        "for": "exampleInputPassword1"
+      }
+    }, [_vm._v("Telefono")]), _vm._v(" "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.band.phone_band,
+        expression: "band.phone_band"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "text"
+      },
+      domProps: {
+        value: _vm.band.phone_band
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(_vm.band, "phone_band", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _vm._m(0, true)]);
+  })], 2)]);
 };
 
 var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", {
-    staticClass: "form-group"
-  }, [_c("label", {
-    attrs: {
-      "for": "exampleInputEmail1"
-    }
-  }, [_vm._v("Nome band")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      id: "exampleInputEmail1",
-      "aria-describedby": "emailHelp",
-      placeholder: "Enter email"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
-    staticClass: "form-group"
-  }, [_c("label", {
-    attrs: {
-      "for": "exampleInputPassword1"
-    }
-  }, [_vm._v("Telefono")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      id: "exampleInputPassword1",
-      placeholder: "Password"
-    }
-  })]);
+  return _c("button", {
+    staticClass: "btn btn-primary mt-5"
+  }, [_c("span", [_vm._v("Modifica")])]);
 }];
 render._withStripped = true;
 

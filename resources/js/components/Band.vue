@@ -5,8 +5,7 @@
                 <h2 class="text-uppercase">{{lista.name_band}}</h2>
             </div>
             <div class="card-body">
-                <h5 class="card-title">{{lista.image_path}}</h5>
-                <img class="img-band" :src="imageBand" alt="Card image cap">
+                <img class="img-band" :src="'/image/' + lista.image_path" alt="Card image cap">
                 <p class="card-text"> Telefono: {{lista.phone_band}}</p>
                 <p class="card-text">Descrizione</p>
                 <a href="#" class="btn btn-primary" @click="view = 1">Modifica</a>
@@ -25,33 +24,47 @@
         name: "Band",
 
         components: {
-            ModificaBand
+            ModificaBand,
         },
 
         data() {
             return {
                 listaBand: [],
-                imageBand: 0,
-                view: 0
+                view: 0,
             }
         },
 
-        created(){
-            this.getBand()
-        },
-
+        // Per aggiungere metodi a un'istanza del componente
         methods: {
             getBand() {
                 axios.get('/lista-band')
                 .then(response => {
+                    if (this.view == 0) {
+                        console.log('ciso');
+                    }
+                    if(this.view == 1) {
+                        console.log('dfafdsfdfd');
+                    }
                     this.listaBand = response.data;
-                    this.imageBand = '/image/' + response.data[0].image_path;
+                    console.log(this.listaBand);
                 });
             },
             cambiaView(valore) {
                 this.view = valore
             }
-        }
+        },
+
+        // Chiamato dopo che l'istanza ha terminato l'elaborazione di tutte le opzioni relative allo stato.
+        created(){
+            this.getBand()
+        },
+        
+        // Chiamato dopo che il componente ha aggiornato il proprio albero DOM a causa di un cambiamento di stato reattivo.
+        // updated () {
+        //     this.getBand()
+        // },
+
+        
     });
 </script>
 

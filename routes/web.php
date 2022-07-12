@@ -25,6 +25,7 @@ Auth::routes();
 
 Route::middleware('can:haUnaBand')->group(function () {
     Route::get('/lista-band', [BandController::class, 'index'])->name('band.index');
+    Route::post('/aggiorna-band', [BandController::class, 'aggiornaBand'])->name('band.aggiorna');
 
     // In questa rotta gli ho passato un parametro opzionale {{nome parametro tpo any e ?}}
     // Inserendo il metodo where l'url va solamente nelle parti che ho elencato e se scrivo un url a caso mi da errore
