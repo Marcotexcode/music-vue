@@ -8,24 +8,16 @@
                 <img class="img-band" :src="'/image/' + lista.image_path" alt="Card image cap">
                 <p class="card-text"> Telefono: {{lista.phone_band}}</p>
                 <p class="card-text">Descrizione</p>
-                <a href="#" class="btn btn-primary" @click="view = 1">Modifica</a>
+                <router-link :to="{name: 'modifica-band', params: { id: lista.id }}" class="btn btn-primary">Modifica</router-link>
             </div>
-        </div>
-        <div v-else>
-           <ModificaBand :cambiaView="view" :datiBand="listaBand" @cambiaView="cambiaView"/>
         </div>
     </div>
 </template>
 
 <script>
-    import ModificaBand from "./ModificaBand.vue";
 
     export default ({
         name: "Band",
-
-        components: {
-            ModificaBand,
-        },
 
         data() {
             return {
@@ -58,13 +50,7 @@
         created(){
             this.getBand()
         },
-        
-        // Chiamato dopo che il componente ha aggiornato il proprio albero DOM a causa di un cambiamento di stato reattivo.
-        // updated () {
-        //     this.getBand()
-        // },
 
-        
     });
 </script>
 

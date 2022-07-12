@@ -5266,13 +5266,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _ModificaBand_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModificaBand.vue */ "./resources/js/components/ModificaBand.vue");
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Band",
-  components: {
-    ModificaBand: _ModificaBand_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
   data: function data() {
     return {
       listaBand: [],
@@ -5304,11 +5299,7 @@ __webpack_require__.r(__webpack_exports__);
   // Chiamato dopo che l'istanza ha terminato l'elaborazione di tutte le opzioni relative allo stato.
   created: function created() {
     this.getBand();
-  } // Chiamato dopo che il componente ha aggiornato il proprio albero DOM a causa di un cambiamento di stato reattivo.
-  // updated () {
-  //     this.getBand()
-  // },
-
+  }
 });
 
 /***/ }),
@@ -5360,7 +5351,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ModificaBand",
-  props: ['cambiaView', 'datiBand'],
   data: function data() {
     return {
       band: []
@@ -5368,17 +5358,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     modificaBand: function modificaBand() {
-      var _this = this;
-
       axios.post('/aggiorna-band', {
         idBand: this.datiBand[0].id,
         name_band: this.band.name_band,
         phone_band: this.band.phone_band
-      }).then(function (response) {
-        _this.$forceUpdate();
-
-        _this.$emit('cambiaView', 0);
-      });
+      }).then(function (response) {});
     }
   }
 });
@@ -5475,25 +5459,17 @@ var render = function render() {
       staticClass: "card-text"
     }, [_vm._v(" Telefono: " + _vm._s(lista.phone_band))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("Descrizione")]), _vm._v(" "), _c("a", {
+    }, [_vm._v("Descrizione")]), _vm._v(" "), _c("router-link", {
       staticClass: "btn btn-primary",
       attrs: {
-        href: "#"
-      },
-      on: {
-        click: function click($event) {
-          _vm.view = 1;
+        to: {
+          name: "modifica-band",
+          params: {
+            id: lista.id
+          }
         }
       }
-    }, [_vm._v("Modifica")])])]) : _c("div", [_c("ModificaBand", {
-      attrs: {
-        cambiaView: _vm.view,
-        datiBand: _vm.listaBand
-      },
-      on: {
-        cambiaView: _vm.cambiaView
-      }
-    })], 1);
+    }, [_vm._v("Modifica")])], 1)]) : _vm._e();
   }), 0);
 };
 
@@ -5587,71 +5563,68 @@ var render = function render() {
     staticClass: "container mt-5"
   }, [_c("div", {
     staticClass: "card glass text-center"
-  }, [_c("h2", [_vm._v("Modifica Band")]), _vm._v(" "), _vm._l(_vm.datiBand, function (lista) {
-    return _c("form", {
-      key: lista.id,
-      on: {
-        submit: function submit($event) {
-          $event.preventDefault();
-          return _vm.modificaBand.apply(null, arguments);
-        }
+  }, [_c("h2", [_vm._v("Modifica Band")]), _vm._v(" "), _c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.modificaBand.apply(null, arguments);
       }
-    }, [_c("div", {
-      staticClass: "form-group"
-    }, [_c("label", {
-      attrs: {
-        "for": "exampleInputEmail1"
-      }
-    }, [_vm._v("Nome band")]), _vm._v(" "), _c("input", {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: _vm.band.name_band,
-        expression: "band.name_band"
-      }],
-      staticClass: "form-control",
-      attrs: {
-        type: "text"
-      },
-      domProps: {
-        value: _vm.band.name_band
-      },
-      on: {
-        input: function input($event) {
-          if ($event.target.composing) return;
+    }
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "exampleInputEmail1"
+    }
+  }, [_vm._v("Nome band")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.band.name_band,
+      expression: "band.name_band"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.band.name_band
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
 
-          _vm.$set(_vm.band, "name_band", $event.target.value);
-        }
+        _vm.$set(_vm.band, "name_band", $event.target.value);
       }
-    })]), _vm._v(" "), _c("div", {
-      staticClass: "form-group"
-    }, [_c("label", {
-      attrs: {
-        "for": "exampleInputPassword1"
-      }
-    }, [_vm._v("Telefono")]), _vm._v(" "), _c("input", {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: _vm.band.phone_band,
-        expression: "band.phone_band"
-      }],
-      staticClass: "form-control",
-      attrs: {
-        type: "text"
-      },
-      domProps: {
-        value: _vm.band.phone_band
-      },
-      on: {
-        input: function input($event) {
-          if ($event.target.composing) return;
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "exampleInputPassword1"
+    }
+  }, [_vm._v("Telefono")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.band.phone_band,
+      expression: "band.phone_band"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.band.phone_band
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
 
-          _vm.$set(_vm.band, "phone_band", $event.target.value);
-        }
+        _vm.$set(_vm.band, "phone_band", $event.target.value);
       }
-    })]), _vm._v(" "), _vm._m(0, true)]);
-  })], 2)]);
+    }
+  })]), _vm._v(" "), _vm._m(0)])])]);
 };
 
 var staticRenderFns = [function () {
@@ -5705,7 +5678,9 @@ var render = function render() {
   }, [_c("router-link", {
     staticClass: "text link",
     attrs: {
-      to: "/home"
+      to: {
+        name: "home"
+      }
     }
   }, [_c("i", {
     staticClass: "fa-solid icon fa-house"
@@ -5716,7 +5691,9 @@ var render = function render() {
   }, [_c("router-link", {
     staticClass: "text link",
     attrs: {
-      to: "/calendario"
+      to: {
+        name: "calendario"
+      }
     }
   }, [_c("i", {
     staticClass: "fa-solid icon fa-calendar"
@@ -5727,7 +5704,9 @@ var render = function render() {
   }, [_c("router-link", {
     staticClass: "text link",
     attrs: {
-      to: "/band"
+      to: {
+        name: "band"
+      }
     }
   }, [_c("i", {
     staticClass: "fa-solid icon fa-music"
@@ -5882,20 +5861,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Calendario_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Calendario.vue */ "./resources/js/components/Calendario.vue");
 /* harmony import */ var _components_Band_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Band.vue */ "./resources/js/components/Band.vue");
 /* harmony import */ var _components_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Home.vue */ "./resources/js/components/Home.vue");
+/* harmony import */ var _components_ModificaBand_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/ModificaBand.vue */ "./resources/js/components/ModificaBand.vue");
 // Importo i vari componenti vue
+
 
 
  // Esporto le rotte dei vari componenti vue
 
 var routes = [{
+  name: 'calendario',
   path: '/calendario',
   component: _components_Calendario_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
+  name: 'band',
   path: '/band',
   component: _components_Band_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
+  name: 'home',
   path: '/home',
   component: _components_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+}, {
+  name: 'modifica-band',
+  path: '/modifica-band/:id',
+  component: _components_ModificaBand_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
 }];
 
 /***/ }),

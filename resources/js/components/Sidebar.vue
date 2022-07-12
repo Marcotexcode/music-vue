@@ -5,7 +5,7 @@
         <ul class="unordered_list">
 
             <li class="list">
-                <router-link to="/home" class="text link">
+                <router-link :to="{name: 'home'}" class="text link">
                     <i class="fa-solid icon fa-house"></i>
                     <transition>
                         <span class="text" v-if="larghezza === 250">Home</span>
@@ -14,7 +14,7 @@
             </li>
 
             <li class="list">
-               <router-link to="/calendario" class="text link">
+               <router-link :to="{name: 'calendario'}" class="text link">
                     <i class="fa-solid icon fa-calendar"></i>
                     <transition>
                         <span class="text" v-if="larghezza === 250">Calendario</span>
@@ -23,7 +23,7 @@
             </li>
 
             <li class="list">
-                <router-link to="/band" class="text link">
+                <router-link :to="{name: 'band'}" class="text link">
                     <i class="fa-solid icon fa-music"></i>
                     <transition>
                         <span class="text" v-if="larghezza === 250">Band</span>
