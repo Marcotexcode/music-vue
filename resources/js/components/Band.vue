@@ -8,7 +8,7 @@
                 <img class="img-band" :src="'/image/' + lista.image_path" alt="Card image cap">
                 <p class="card-text"> Telefono: {{lista.phone_band}}</p>
                 <p class="card-text">Descrizione</p>
-                <router-link :to="{name: 'modifica-band', params: { id: lista.id }}" class="btn btn-primary">Modifica</router-link>
+                <router-link :to="{name: 'modifica-band', params: { id: lista.id }}" class="btn btn-dark">Modifica</router-link>
             </div>
         </div>
     </div>
@@ -31,14 +31,7 @@
             getBand() {
                 axios.get('/lista-band')
                 .then(response => {
-                    if (this.view == 0) {
-                        console.log('ciso');
-                    }
-                    if(this.view == 1) {
-                        console.log('dfafdsfdfd');
-                    }
                     this.listaBand = response.data;
-                    console.log(this.listaBand);
                 });
             },
             cambiaView(valore) {

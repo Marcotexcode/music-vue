@@ -5280,16 +5280,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/lista-band').then(function (response) {
-        if (_this.view == 0) {
-          console.log('ciso');
-        }
-
-        if (_this.view == 1) {
-          console.log('dfafdsfdfd');
-        }
-
         _this.listaBand = response.data;
-        console.log(_this.listaBand);
       });
     },
     cambiaView: function cambiaView(valore) {
@@ -5349,21 +5340,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+// export default : Serve per registrare il componente e per poterlo riutilizzare in seguito, se necessario
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  // name : Serve per nominare il coponente
   name: "ModificaBand",
+  // data() : Ogni proprietà all'interno di quell'oggetto viene aggiunta al sistema di reattività Vue in modo che se cambiamo quel valore della proprietà, vuejs esegue nuovamente il rendering del dom con i dati aggiornati.
   data: function data() {
     return {
-      band: []
+      // band : Inizializzo un array
+      band: [],
+      file: ''
     };
   },
+  // methods : E' un oggetto associato all'istanza Vue. Le funzioni sono definite all'interno dell'oggetto methods. I metodi sono utili quando è necessario eseguire alcune azioni con la direttiva v-on su un elemento per gestire gli eventi. Le funzioni definite all'interno dell'oggetto metodi possono essere ulteriormente richiamate per eseguire azioni.
   methods: {
+    onChange: function onChange(e) {
+      this.file = e.target.files[0];
+    },
+    // modificaBand : Funzione utilizzata per fare una chiamata axios
     modificaBand: function modificaBand() {
-      axios.post('/aggiorna-band', {
-        idBand: this.datiBand[0].id,
-        name_band: this.band.name_band,
-        phone_band: this.band.phone_band
-      }).then(function (response) {});
+      var _this = this;
+
+      // FormData : L' interfaccia FormData fornisce un modo per costruire facilmente un insieme di coppie chiave/valore che rappresentano i campi del modulo ei relativi valori. Utilizza lo stesso formato che utilizzerebbe un modulo se il tipo di codifica fosse impostato su "multipart/form-data".
+      var formData = new FormData(); // Aggiunge un nuovo valore a una chiave esistente all'interno di un oggetto FormData o aggiunge la chiave se non esiste già.
+
+      formData.append('image_path', this.file); // this : In JavaScript, la parola chiave this fa riferimento a un oggetto
+      // $ : All' interno di un instanza Vue, hai accesso all'instanza del router come $router.
+
+      formData.append('idBand', this.$route.params.id);
+      formData.append('name_band', this.band.name_band);
+      formData.append('phone_band', this.band.phone_band); // axios : Axios è un client HTTP basato su promise (promesse: eventuale completamento (o fallimento) di un'operazione asincrona e il suo valore risultante) per il browser e Node.js. Ha la capacità di effettuare richieste HTTP dal browser e gestire la trasformazione dei dati di richiesta e risposta.
+
+      axios.post('/aggiorna-band', formData, {// headers: {
+        //     "Content-Type": "multipart/form-data",
+        // },
+      }) // then : Il metodo then restituisce una risposta che ha esito positivo
+      .then(function (response) {
+        // this : In javascript, la parola chiave this fa riferimento a un oggetto
+        // $ : All'interno di un instanza Vue, hai accesso all'instanza Del router come $router. Quindi il metodo viene chiamato $router.push()
+        // router.push : Un metodo che serve per passare a un url diverso
+        _this.$router.push({
+          name: 'band'
+        });
+      });
     }
+  },
+  // created : Opzione chiamata in modo sincrono (sincrono: il processo rimane in attesa che questo venga eseguito e (solitamente) gli venga fornita una risposta.) dopo la creazione dell' instanza
+  created: function created() {
+    var _this2 = this;
+
+    axios.get('/lista-band').then(function (response) {
+      _this2.band = response.data[0];
+    });
   }
 });
 
@@ -5460,7 +5488,7 @@ var render = function render() {
     }, [_vm._v(" Telefono: " + _vm._s(lista.phone_band))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
     }, [_vm._v("Descrizione")]), _vm._v(" "), _c("router-link", {
-      staticClass: "btn btn-primary",
+      staticClass: "btn btn-dark",
       attrs: {
         to: {
           name: "modifica-band",
@@ -5564,6 +5592,9 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card glass text-center"
   }, [_c("h2", [_vm._v("Modifica Band")]), _vm._v(" "), _c("form", {
+    attrs: {
+      enctype: "multipart/form-data"
+    },
     on: {
       submit: function submit($event) {
         $event.preventDefault();
@@ -5572,9 +5603,25 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "form-group"
+  }, [_c("img", {
+    staticClass: "img-band",
+    attrs: {
+      src: "/image/" + _vm.band.image_path,
+      alt: "Card image cap"
+    }
+  }), _vm._v(" "), _c("input", {
+    staticClass: "form-control",
+    attrs: {
+      type: "file"
+    },
+    on: {
+      change: _vm.onChange
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
   }, [_c("label", {
     attrs: {
-      "for": "exampleInputEmail1"
+      "for": "nameBand"
     }
   }, [_vm._v("Nome band")]), _vm._v(" "), _c("input", {
     directives: [{
@@ -5585,7 +5632,8 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text"
+      type: "text",
+      id: "nameBand"
     },
     domProps: {
       value: _vm.band.name_band
@@ -5601,7 +5649,7 @@ var render = function render() {
     staticClass: "form-group"
   }, [_c("label", {
     attrs: {
-      "for": "exampleInputPassword1"
+      "for": "telefono"
     }
   }, [_vm._v("Telefono")]), _vm._v(" "), _c("input", {
     directives: [{
@@ -5612,7 +5660,8 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text"
+      type: "text",
+      id: "telefono"
     },
     domProps: {
       value: _vm.band.phone_band
@@ -5624,17 +5673,12 @@ var render = function render() {
         _vm.$set(_vm.band, "phone_band", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _vm._m(0)])])]);
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-dark mt-5"
+  }, [_vm._v("Modifica")])])])]);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("button", {
-    staticClass: "btn btn-primary mt-5"
-  }, [_c("span", [_vm._v("Modifica")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 

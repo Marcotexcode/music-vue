@@ -49,9 +49,20 @@ class BandController extends Controller
             'phone_band' => 'required',
         ]);
 
+        $imageName = time() . '-' . $request->name_band . '.';
+        
+        // extension() : La funzione extension() determina l'estensione del file in base al tipo MIME del file...
+        $request->image_path->extension();
+
+        // move : il metodo move può essere utilizzato per rinominare o spostare un file esistente in una nuova posizione
+        // public_path() : La funzione public_path restituisce il percorso completo della publicdirectory dell'applicazione esempio: "C:\laragon\www\music-vue\public\image"
+        $request->image_path->move(public_path('image'), $imageName);
+
+
         $band = Band::where('id', $request->idBand)->update([
             'name_band' => $request->name_band,
             'phone_band' => $request->phone_band,
+            'image_path' => $imageName,
         ]);
     }
 }
