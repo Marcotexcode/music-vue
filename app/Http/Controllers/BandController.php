@@ -49,6 +49,7 @@ class BandController extends Controller
             'phone_band' => 'required',
         ]);
 
+        // time() : La funzione time() restituisce l'ora corrente nel numero di secondi dall'epoca di Unix (1 gennaio 1970 00:00:00 GMT).
         $imageName = time() . '-' . $request->name_band . '.';
         
         // extension() : La funzione extension() determina l'estensione del file in base al tipo MIME del file...
