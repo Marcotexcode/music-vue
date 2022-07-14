@@ -5274,7 +5274,6 @@ __webpack_require__.r(__webpack_exports__);
       view: 0
     };
   },
-  // Per aggiungere metodi a un'istanza del componente
   methods: {
     getBand: function getBand() {
       var _this = this;
@@ -5287,7 +5286,6 @@ __webpack_require__.r(__webpack_exports__);
       this.view = valore;
     }
   },
-  // Chiamato dopo che l'istanza ha terminato l'elaborazione di tutte le opzioni relative allo stato.
   created: function created() {
     this.getBand();
   }
@@ -5340,52 +5338,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-// export default : Serve per registrare il componente e per poterlo riutilizzare in seguito, se necessario
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  // name : Serve per nominare il coponente
   name: "ModificaBand",
-  // data() : Ogni proprietà all'interno di quell'oggetto viene aggiunta al sistema di reattività Vue in modo che se cambiamo quel valore della proprietà, vuejs esegue nuovamente il rendering del dom con i dati aggiornati.
   data: function data() {
     return {
-      // band : Inizializzo un array
       band: [],
-      file: ''
+      immagine: ''
     };
   },
-  // methods : E' un oggetto associato all'istanza Vue. Le funzioni sono definite all'interno dell'oggetto methods. I metodi sono utili quando è necessario eseguire alcune azioni con la direttiva v-on su un elemento per gestire gli eventi. Le funzioni definite all'interno dell'oggetto metodi possono essere ulteriormente richiamate per eseguire azioni.
   methods: {
     onChange: function onChange(e) {
-      this.file = e.target.files[0];
+      this.immagine = e.target.files[0];
     },
-    // modificaBand : Funzione utilizzata per fare una chiamata axios
     modificaBand: function modificaBand() {
       var _this = this;
 
-      // FormData : L' interfaccia FormData fornisce un modo per costruire facilmente un insieme di coppie chiave/valore che rappresentano i campi del modulo ei relativi valori. Utilizza lo stesso formato che utilizzerebbe un modulo se il tipo di codifica fosse impostato su "multipart/form-data".
-      var formData = new FormData(); // Aggiunge un nuovo valore a una chiave esistente all'interno di un oggetto FormData o aggiunge la chiave se non esiste già.
-
-      formData.append('image_path', this.file); // this : In JavaScript, la parola chiave this fa riferimento a un oggetto
-      // $ : All' interno di un instanza Vue, hai accesso all'instanza del router come $router.
-
+      var formData = new FormData();
+      formData.append('image_path', this.immagine);
+      formData.append('img_vecchia', this.band.image_path);
       formData.append('idBand', this.$route.params.id);
       formData.append('name_band', this.band.name_band);
-      formData.append('phone_band', this.band.phone_band); // axios : Axios è un client HTTP basato su promise (promesse: eventuale completamento (o fallimento) di un'operazione asincrona e il suo valore risultante) per il browser e Node.js. Ha la capacità di effettuare richieste HTTP dal browser e gestire la trasformazione dei dati di richiesta e risposta.
-
-      axios.post('/aggiorna-band', formData, {// headers: {
-        //     "Content-Type": "multipart/form-data",
-        // },
-      }) // then : Il metodo then restituisce una risposta che ha esito positivo
-      .then(function (response) {
-        // this : In javascript, la parola chiave this fa riferimento a un oggetto
-        // $ : All'interno di un instanza Vue, hai accesso all'instanza Del router come $router. Quindi il metodo viene chiamato $router.push()
-        // router.push : Un metodo che serve per passare a un url diverso
+      formData.append('phone_band', this.band.phone_band);
+      axios.post('/aggiorna-band', formData).then(function (response) {
+        // Torna alla view della band
         _this.$router.push({
           name: 'band'
         });
       });
     }
   },
-  // created : Opzione chiamata in modo sincrono (sincrono: il processo rimane in attesa che questo venga eseguito e (solitamente) gli venga fornita una risposta.) dopo la creazione dell' instanza
   created: function created() {
     var _this2 = this;
 
@@ -5468,7 +5449,7 @@ var render = function render() {
   return _c("div", {
     staticClass: "container mt-5"
   }, _vm._l(_vm.listaBand, function (lista) {
-    return _vm.view == 0 ? _c("div", {
+    return _c("div", {
       key: lista.id,
       staticClass: "card glass text-center"
     }, [_c("div", {
@@ -5480,7 +5461,7 @@ var render = function render() {
     }, [_c("img", {
       staticClass: "img-band",
       attrs: {
-        src: "/image/" + lista.image_path,
+        src: "/storage/" + lista.image_path,
         alt: "Card image cap"
       }
     }), _vm._v(" "), _c("p", {
@@ -5497,7 +5478,7 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v("Modifica")])], 1)]) : _vm._e();
+    }, [_vm._v("Modifica")])], 1)]);
   }), 0);
 };
 
@@ -5592,9 +5573,6 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card glass text-center"
   }, [_c("h2", [_vm._v("Modifica Band")]), _vm._v(" "), _c("form", {
-    attrs: {
-      enctype: "multipart/form-data"
-    },
     on: {
       submit: function submit($event) {
         $event.preventDefault();
@@ -5606,7 +5584,7 @@ var render = function render() {
   }, [_c("img", {
     staticClass: "img-band",
     attrs: {
-      src: "/image/" + _vm.band.image_path,
+      src: "/storage/" + _vm.band.image_path,
       alt: "Card image cap"
     }
   }), _vm._v(" "), _c("input", {
@@ -5616,6 +5594,28 @@ var render = function render() {
     },
     on: {
       change: _vm.onChange
+    }
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.band.image_path,
+      expression: "band.image_path"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "hidden",
+      id: "nameBand"
+    },
+    domProps: {
+      value: _vm.band.image_path
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.band, "image_path", $event.target.value);
+      }
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"

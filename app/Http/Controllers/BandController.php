@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\User;
 use App\Models\Band;
@@ -24,16 +25,13 @@ class BandController extends Controller
             'phoneBand' => 'required',
         ]);
 
-        $imageName = time() . '-' . $request->nameBand . '.' .
-
-        $request->image->extension();
-
-        $request->image->move(public_path('image'), $imageName);
+        // Salvo l'immagine
+        $img = Storage::put('immagine_band', $request->image);
 
         $band = Band::create([
             'name_band' => $request->input('nameBand'),
             'phone_band' => $request->input('phoneBand'),
-            'image_path' => $imageName,
+            'image_path' => $img,
             'user_id' => Auth::user()->id,
         ]);
 
@@ -42,28 +40,23 @@ class BandController extends Controller
         return redirect('band');
     }
 
-    public function aggiornaBand(Request $request) 
+    public function aggiornaBand(Request $request)
     {
         $request->validate([
             'name_band' => 'required',
             'phone_band' => 'required',
         ]);
 
-        // time() : La funzione time() restituisce l'ora corrente nel numero di secondi dall'epoca di Unix (1 gennaio 1970 00:00:00 GMT).
-        $imageName = time() . '-' . $request->name_band . '.';
-        
-        // extension() : La funzione extension() determina l'estensione del file in base al tipo MIME del file...
-        $request->image_path->extension();
+        // Salvo la nuova immagine
+        $nuovaImmagine = Storage::put('immagine_band', $request->image_path);
 
-        // move : il metodo move può essere utilizzato per rinominare o spostare un file esistente in una nuova posizione
-        // public_path() : La funzione public_path restituisce il percorso completo della publicdirectory dell'applicazione esempio: "C:\laragon\www\music-vue\public\image"
-        $request->image_path->move(public_path('image'), $imageName);
-
+        // Elimino quella vecchia
+        Storage::delete($request->img_vecchia);
 
         $band = Band::where('id', $request->idBand)->update([
             'name_band' => $request->name_band,
             'phone_band' => $request->phone_band,
-            'image_path' => $imageName,
+            'image_path' => $nuovaImmagine,
         ]);
     }
 }
