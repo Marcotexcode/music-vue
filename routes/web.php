@@ -5,18 +5,6 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\BandController;
 use App\Http\Controllers\HomeController;
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -32,7 +20,7 @@ Route::middleware('can:haUnaBand')->group(function () {
     Route::get('/lista-band', [BandController::class, 'index'])->name('band.index');
     Route::post('/aggiorna-band', [BandController::class, 'aggiornaBand'])->name('band.aggiorna');
 
-    // Metterlo sempre alla fine di tutte le rotte
+    // Metterlo sempre alla fine di tutte le rotte cosi se l'url non è quello delle atre rotte allora entra in questa
     Route::get('/{any?}', [HomeController::class, 'index'])->where('any', '.*');
 });
 
