@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\BandController;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,19 +23,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
+Route::middleware('can:nonHaUnaBand')->group(function () {
+    Route::view('/createBand', 'band.create');
+    Route::post('/bande', [BandController::class, 'store'])->name('createBand');
+});
 
 Route::middleware('can:haUnaBand')->group(function () {
     Route::get('/lista-band', [BandController::class, 'index'])->name('band.index');
     Route::post('/aggiorna-band', [BandController::class, 'aggiornaBand'])->name('band.aggiorna');
 
-    // In questa rotta gli ho passato un parametro opzionale {{nome parametro tpo any e ?}}
-    // Inserendo il metodo where l'url va solamente nelle parti che ho elencato e se scrivo un url a caso mi da errore
-    // Il controller di questa rotta è ad azione singola quindi non ha nessun metodo da passare
-    Route::get('/{any?}', PagesController::class)->where('any', 'band|home|calendario|modifica-band/id');
+    // Metterlo sempre alla fine di tutte le rotte
+    Route::get('/{any?}', [HomeController::class, 'index'])->where('any', '.*');
 });
 
-Route::middleware('can:nonHaUnaBand')->group(function () {
-    Route::view('/createBand', 'band.create');
-    Route::post('/bande', [BandController::class, 'store'])->name('createBand');
-});
+

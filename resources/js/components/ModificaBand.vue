@@ -4,16 +4,17 @@
             <h2>Modifica Band</h2>
            <form @submit.prevent="modificaBand">
                 <div class="form-group">
-                    <img class="img-band" :src="'/storage/' + band.image_path" alt="Card image cap">
+                    <img class="img-band form-control" :src="'/storage/' + band.image_path" alt="Card image cap">
+                    <label for="telefono"><h3>Cambia immagine</h3></label>
                     <input type="file" class="form-control" v-on:change="onChange">
                     <input type="hidden" v-model="band.image_path" class="form-control" id="nameBand">
                 </div>
                 <div class="form-group">
-                    <label for="nameBand">Nome band</label>
+                    <label for="nameBand"><h3>Nome Band</h3></label>
                     <input type="text" v-model="band.name_band" class="form-control" id="nameBand">
                 </div>
                 <div class="form-group">
-                    <label for="telefono">Telefono</label>
+                    <label for="telefono"><h3>Telefono</h3></label>
                     <input type="text" v-model="band.phone_band" class="form-control" id="telefono">
                 </div>
                 <button class="btn btn-dark mt-5">Modifica</button>

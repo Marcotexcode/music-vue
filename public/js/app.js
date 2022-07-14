@@ -5582,12 +5582,12 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "form-group"
   }, [_c("img", {
-    staticClass: "img-band",
+    staticClass: "img-band form-control",
     attrs: {
       src: "/storage/" + _vm.band.image_path,
       alt: "Card image cap"
     }
-  }), _vm._v(" "), _c("input", {
+  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("input", {
     staticClass: "form-control",
     attrs: {
       type: "file"
@@ -5619,11 +5619,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", {
-    attrs: {
-      "for": "nameBand"
-    }
-  }, [_vm._v("Nome band")]), _vm._v(" "), _c("input", {
+  }, [_vm._m(1), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -5647,11 +5643,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_c("label", {
-    attrs: {
-      "for": "telefono"
-    }
-  }, [_vm._v("Telefono")]), _vm._v(" "), _c("input", {
+  }, [_vm._m(2), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -5678,7 +5670,34 @@ var render = function render() {
   }, [_vm._v("Modifica")])])])]);
 };
 
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", {
+    attrs: {
+      "for": "telefono"
+    }
+  }, [_c("h3", [_vm._v("Cambia immagine")])]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", {
+    attrs: {
+      "for": "nameBand"
+    }
+  }, [_c("h3", [_vm._v("Nome Band")])]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("label", {
+    attrs: {
+      "for": "telefono"
+    }
+  }, [_c("h3", [_vm._v("Telefono")])]);
+}];
 render._withStripped = true;
 
 
