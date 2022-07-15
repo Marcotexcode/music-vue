@@ -19,10 +19,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-        #app {
+        body {
             background: linear-gradient(-45deg, #e6a717, #000000, #225e23, #423ec4);
             background-size: 400% 400%;
+            height: 100vh;
         }
+
     </style>
 </head>
 <body>
@@ -81,7 +83,7 @@
             </div>
         </nav>
 
-        <main>
+        <main class="main">
             @yield('content')
         </main>
     </div>

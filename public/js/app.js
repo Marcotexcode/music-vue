@@ -5343,7 +5343,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       band: [],
-      immagine: ''
+      immagine: '',
+      errors: {}
     };
   },
   methods: {
@@ -5360,10 +5361,17 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('name_band', this.band.name_band);
       formData.append('phone_band', this.band.phone_band);
       axios.post('/aggiorna-band', formData).then(function (response) {
-        // Torna alla view della band
+        console.log(response); // Torna alla view della band
+
         _this.$router.push({
           name: 'band'
         });
+      })["catch"](function (error) {
+        if (error.response.status == 422) {
+          _this.errors = error.response.data.errors;
+        }
+
+        console.log(_this.errors);
       });
     }
   },
@@ -5571,8 +5579,9 @@ var render = function render() {
   return _c("div", {
     staticClass: "container mt-5"
   }, [_c("div", {
-    staticClass: "card glass text-center"
+    staticClass: "card glass text-center p-5"
   }, [_c("h2", [_vm._v("Modifica Band")]), _vm._v(" "), _c("form", {
+    staticClass: "p-5",
     on: {
       submit: function submit($event) {
         $event.preventDefault();
@@ -5580,14 +5589,18 @@ var render = function render() {
       }
     }
   }, [_c("div", {
-    staticClass: "form-group"
+    staticClass: "form-group d-flex justify-content-center my-4"
   }, [_c("img", {
     staticClass: "img-band form-control",
     attrs: {
       src: "/storage/" + _vm.band.image_path,
       alt: "Card image cap"
     }
-  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("input", {
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_vm._m(0), _vm._v(" "), _vm.errors && _vm.errors.image_path ? _c("div", {
+    staticClass: "alert alert-danger"
+  }, [_vm._v("\n                        " + _vm._s(_vm.errors.image_path[0]) + "\n                ")]) : _vm._e(), _vm._v(" "), _c("input", {
     staticClass: "form-control",
     attrs: {
       type: "file"
@@ -5618,8 +5631,10 @@ var render = function render() {
       }
     }
   })]), _vm._v(" "), _c("div", {
-    staticClass: "form-group"
-  }, [_vm._m(1), _vm._v(" "), _c("input", {
+    staticClass: "form-group my-4"
+  }, [_vm._m(1), _vm._v(" "), _vm.errors && _vm.errors.name_band ? _c("div", {
+    staticClass: "alert alert-danger"
+  }, [_vm._v("\n                        " + _vm._s(_vm.errors.name_band[0]) + "\n                ")]) : _vm._e(), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -5643,7 +5658,9 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
-  }, [_vm._m(2), _vm._v(" "), _c("input", {
+  }, [_vm._m(2), _vm._v(" "), _vm.errors && _vm.errors.phone_band ? _c("div", {
+    staticClass: "alert alert-danger"
+  }, [_vm._v("\n                        " + _vm._s(_vm.errors.phone_band[0]) + "\n                ")]) : _vm._e(), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",

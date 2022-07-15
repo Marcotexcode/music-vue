@@ -1,20 +1,31 @@
 <template>
     <div class="container mt-5">
-        <div class="card glass text-center">
+        <div class="card glass text-center  p-5">
             <h2>Modifica Band</h2>
-           <form @submit.prevent="modificaBand">
-                <div class="form-group">
+           <form @submit.prevent="modificaBand" class="p-5">
+                <div class="form-group d-flex justify-content-center my-4">
                     <img class="img-band form-control" :src="'/storage/' + band.image_path" alt="Card image cap">
+                </div>
+                <div class="form-group">
                     <label for="telefono"><h3>Cambia immagine</h3></label>
+                    <div class="alert alert-danger" v-if="errors && errors.image_path">
+                            {{errors.image_path[0]}}
+                    </div>
                     <input type="file" class="form-control" v-on:change="onChange">
                     <input type="hidden" v-model="band.image_path" class="form-control" id="nameBand">
                 </div>
-                <div class="form-group">
+                <div class="form-group my-4">
                     <label for="nameBand"><h3>Nome Band</h3></label>
+                    <div class="alert alert-danger" v-if="errors && errors.name_band">
+                            {{errors.name_band[0]}}
+                    </div>
                     <input type="text" v-model="band.name_band" class="form-control" id="nameBand">
                 </div>
                 <div class="form-group">
                     <label for="telefono"><h3>Telefono</h3></label>
+                    <div class="alert alert-danger" v-if="errors && errors.phone_band">
+                            {{errors.phone_band[0]}}
+                    </div>
                     <input type="text" v-model="band.phone_band" class="form-control" id="telefono">
                 </div>
                 <button class="btn btn-dark mt-5">Modifica</button>
@@ -31,6 +42,7 @@
             return {
                 band:[],
                 immagine: '',
+                errors: {}
             }
         },
 
@@ -38,6 +50,7 @@
             onChange(e) {
                 this.immagine = e.target.files[0];
             },
+
             modificaBand() {
                 const formData = new FormData()
 
@@ -49,9 +62,16 @@
 
                 axios.post('/aggiorna-band', formData)
                 .then(response => {
+                    console.log(response);
                     // Torna alla view della band
                     this.$router.push({ name: 'band'})
-                });
+                })
+                .catch((error) => {
+                    if (error.response.status == 422) {
+                        this.errors = error.response.data.errors
+                    }
+                    console.log(this.errors);
+                })
             }
         },
 

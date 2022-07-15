@@ -23,6 +23,7 @@ class BandController extends Controller
         $request->validate([
             'nameBand' => 'required',
             'phoneBand' => 'required',
+            'image_path' => 'required',
         ]);
 
         // Salvo l'immagine
@@ -42,9 +43,10 @@ class BandController extends Controller
 
     public function aggiornaBand(Request $request)
     {
-        $request->validate([
+        $val = $request->validate([
             'name_band' => 'required',
             'phone_band' => 'required',
+            'image_path' => 'required',
         ]);
 
         // Salvo la nuova immagine
@@ -58,5 +60,6 @@ class BandController extends Controller
             'phone_band' => $request->phone_band,
             'image_path' => $nuovaImmagine,
         ]);
+        return response()->json($val);
     }
 }
