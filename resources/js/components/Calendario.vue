@@ -81,6 +81,8 @@ export default {
         },
 
         eliminaAggiungiEvento(info) {
+            // Devo prendere l'id dell evento e la data e modificare il controller inserendo il create o update
+            // e poi la possibilita di eliminare l'evento
             console.log(info.event.extendedProps);
         }
     },
