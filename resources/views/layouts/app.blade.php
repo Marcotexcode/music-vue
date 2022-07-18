@@ -20,7 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(-45deg, #e6a717, #000000, #225e23, #423ec4);
+            background: linear-gradient(143deg, #e6a717, #000000, #225e23, #423ec4);
             background-size: 400% 400%;
             height: 100vh;
         }

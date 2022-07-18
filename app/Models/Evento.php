@@ -10,4 +10,10 @@ class Evento extends Model
     use HasFactory;
 
     protected $table = 'eventi';
+
+    protected $fillable = [
+        'nome_evento',
+        'data_evento',
+        'band_id',
+    ];
 }

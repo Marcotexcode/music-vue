@@ -35,6 +35,6 @@ Vue.component('app-component', require('./views/App.vue').default);
  */
 
 // Creo una nuova instanza dell'aplicazione Vue
- const app = new Vue({
-    router
+const app = new Vue({
+    router,
 }).$mount('#app')

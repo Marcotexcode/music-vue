@@ -1,10 +1,10 @@
 <template>
     <div class="container mt-5">
-        <div class="card glass text-center  p-5">
+        <div class="glass rounded text-center">
             <h2>Modifica Band</h2>
-           <form @submit.prevent="modificaBand" class="p-5">
+           <form @submit.prevent="modificaBand" class="p-2">
                 <div class="form-group d-flex justify-content-center my-4">
-                    <img class="img-band form-control" :src="'/storage/' + band.image_path" alt="Card image cap">
+                    <img class="img-band" :src="'/storage/' + band.image_path" alt="Card image cap">
                 </div>
                 <div class="form-group">
                     <label for="telefono"><h3>Cambia immagine</h3></label>
