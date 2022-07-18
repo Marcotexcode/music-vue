@@ -44,6 +44,7 @@ export default {
                 initialView: 'dayGridMonth',
                 events: this.mostraEventi,
                 dateClick: this.aggiungiEvento,
+                eventClick: this.eliminaAggiungiEvento,
             },
         }
     },
@@ -70,12 +71,18 @@ export default {
                 dataEvento: this.dataCella,
             })
             .then(response => {
+                // Usando l'attributo speciale $refs ho pieno accesso a ogni proprietà e metodo del componente figlio
                 this.$refs['my-modal'].hide()
+                // refetchEvents() recupera gli eventi da tutte le fonti e li riproduce sullo schermo
                 this.$refs.fullCalendar.getApi().refetchEvents()
             })
             .catch((error) => {
             })
         },
+
+        eliminaAggiungiEvento(info) {
+            console.log(info.event.extendedProps);
+        }
     },
 
     created() {

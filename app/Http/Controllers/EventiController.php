@@ -17,7 +17,7 @@ class EventiController extends Controller
 
             $aggiuntaArrayEventi = [];
             $aggiuntaArrayEventi['title'] = $mostraEvento->nome_evento;
-            // $aggiuntaArrayEventi['idPresenza'] = $presenza->id;
+            $aggiuntaArrayEventi['idEvento'] = $mostraEvento->id;
             // $aggiuntaArrayEventi['id'] = $presenza->collaboratori->id;
             $aggiuntaArrayEventi['start'] = $mostraEvento->data_evento;
             $aggiuntaArrayEventi['backgroundColor'] = '#343a40';
