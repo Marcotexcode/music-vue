@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Evento;
+use App\Models\Band;
+
+use Illuminate\Support\Facades\Auth;
 
 class EventiController extends Controller
 {
     public function mostraEventi(Request $request)
     {
-        $mostraEventi = Evento::whereBetween('data_evento', [$request->dataInizio, $request->dataFine])->get();
+        $band = Band::where('user_id', Auth::user()->id)->value('id');
+
+        $mostraEventi = Evento::where('band_id', $band)->whereBetween('data_evento', [$request->dataInizio, $request->dataFine])->get();
 
         $arrayEventi = [];
 
@@ -18,27 +23,35 @@ class EventiController extends Controller
             $aggiuntaArrayEventi = [];
             $aggiuntaArrayEventi['title'] = $mostraEvento->nome_evento;
             $aggiuntaArrayEventi['idEvento'] = $mostraEvento->id;
-            // $aggiuntaArrayEventi['id'] = $presenza->collaboratori->id;
             $aggiuntaArrayEventi['start'] = $mostraEvento->data_evento;
             $aggiuntaArrayEventi['backgroundColor'] = '#343a40';
             $aggiuntaArrayEventi['borderColor'] = '#343a40';
 
-             array_push($arrayEventi, $aggiuntaArrayEventi);
+            array_push($arrayEventi, $aggiuntaArrayEventi);
         }
 
         return response()->json($arrayEventi);
     }
 
     public function creaEvento(Request $request) {
+
         $request->validate([
             'nomeEvento' => 'required',
             'idBand' => 'required',
             'dataEvento' => 'required',
         ]);
-        $event = Evento::create([
-            'nome_evento' => $request->input('nomeEvento'),
-            'data_evento' => $request->input('dataEvento'),
-            'band_id' => $request->input('idBand'),
-        ]);
+
+        $evento = Evento::updateOrCreate(
+            [
+                'id' => $request->input('idEvento'),
+                'data_evento' => $request->input('dataEvento'),
+            ],
+            [
+                'nome_evento' => $request->input('nomeEvento'),
+                'data_evento' => $request->input('dataEvento'),
+                'band_id' => $request->input('idBand'),
+            ]
+        );
+
     }
 }

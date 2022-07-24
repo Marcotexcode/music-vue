@@ -7,8 +7,9 @@
                 <form @submit.prevent="creaEvento">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Nome evento {{band.id}}</label>
-                        <input type="text" v-model="nome_evento" class="form-control" id="exampleInputEmail1">
-                        <input type="hidden" v-model="band.id" class="form-control" id="exampleInputEmail1">
+                        <input type="text" v-model="evento" class="form-control">
+                        <input type="hidden" v-model="band.id" class="form-control">
+                        <input type="hidden" v-model="idEvento" class="form-control">
                     </div>
                     <button class="btn btn-dark mt-5">Aggiungi evento</button>
                 </form>
@@ -30,10 +31,10 @@ export default {
     },
     data() {
         return {
-            nome_evento: '',
-            data_evento: '',
+            idEvento: '',
             dataCella: '',
             band:[],
+            evento: '',
             calendarOptions: {
                 plugins: [ dayGridPlugin, interactionPlugin ],
                 editable: true,
@@ -44,12 +45,13 @@ export default {
                 initialView: 'dayGridMonth',
                 events: this.mostraEventi,
                 dateClick: this.aggiungiEvento,
-                eventClick: this.eliminaAggiungiEvento,
+                eventClick: this.modificaEvento,
             },
         }
     },
     methods: {
         aggiungiEvento(info) {
+            // https://vuejs.org/guide/essentials/template-refs.html
             this.$refs['my-modal'].show()
             this.dataCella = info.dateStr
         },
@@ -66,24 +68,23 @@ export default {
 
         creaEvento() {
             axios.post('/crea-evento', {
-                nomeEvento: this.nome_evento,
+                nomeEvento: this.evento,
                 idBand: this.band.id,
                 dataEvento: this.dataCella,
+                idEvento: this.idEvento,
             })
             .then(response => {
-                // Usando l'attributo speciale $refs ho pieno accesso a ogni proprietà e metodo del componente figlio
                 this.$refs['my-modal'].hide()
-                // refetchEvents() recupera gli eventi da tutte le fonti e li riproduce sullo schermo
+                // https://fullcalendar.io/docs/Calendar-refetchEvents
                 this.$refs.fullCalendar.getApi().refetchEvents()
-            })
-            .catch((error) => {
             })
         },
 
-        eliminaAggiungiEvento(info) {
-            // Devo prendere l'id dell evento e la data e modificare il controller inserendo il create o update
-            // e poi la possibilita di eliminare l'evento
-            console.log(info.event.extendedProps);
+        modificaEvento(info) {
+            this.$refs['my-modal'].show()
+            this.evento = info.event.title
+            this.idEvento = info.event.extendedProps.idEvento
+            this.dataCella = info.event.startStr
         }
     },
 

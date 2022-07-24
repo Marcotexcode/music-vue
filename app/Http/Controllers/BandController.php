@@ -23,7 +23,7 @@ class BandController extends Controller
         $request->validate([
             'nameBand' => 'required',
             'phoneBand' => 'required',
-            'image_path' => 'required',
+            'image' => 'required',
         ]);
 
         // Salvo l'immagine

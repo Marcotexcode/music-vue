@@ -4,11 +4,11 @@
             <h2>Modifica Band</h2>
            <form @submit.prevent="modificaBand" class="p-2">
                 <div class="form-group d-flex justify-content-center my-4">
-                    <img class="img-band" :src="'/storage/' + band.image_path" alt="Card image cap">
+                    <img class="img-band"  :src="'/storage/' + band.image_path" alt="Card image cap">
                 </div>
                 <div class="form-group">
                     <label for="telefono"><h3>Cambia immagine</h3></label>
-                    <div class="alert alert-danger" v-if="errors && errors.image_path">
+                    <div class="alert alert-danger"  v-if="errors && errors.image_path">
                             {{errors.image_path[0]}}
                     </div>
                     <input type="file" class="form-control" v-on:change="onChange">
@@ -52,6 +52,7 @@
             },
 
             modificaBand() {
+                // https://developer.mozilla.org/en-US/docs/Web/API/FormData?retiredLocale=it
                 const formData = new FormData()
 
                 formData.append('image_path', this.immagine)
@@ -62,7 +63,6 @@
 
                 axios.post('/aggiorna-band', formData)
                 .then(response => {
-                    console.log(response);
                     // Torna alla view della band
                     this.$router.push({ name: 'band'})
                 })
@@ -79,6 +79,7 @@
             axios.get('/lista-band')
                 .then(response => {
                     this.band = response.data[0];
+                    console.log(this.band);
                 });
         },
     });
