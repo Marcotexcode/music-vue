@@ -54,4 +54,9 @@ class EventiController extends Controller
         );
 
     }
+
+    public function eliminaEvento(Request $request)
+    {
+        $prova = Evento::whereIn('id', $request)->delete();
+    }
 }

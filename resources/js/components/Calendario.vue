@@ -3,7 +3,7 @@
     <div class="container glass rounded mt-5 glass p-5">
         <FullCalendar ref="fullCalendar" :options="calendarOptions" />
         <div>
-            <b-modal ref="my-modal" hide-footer :title="'Aggiungi Evento: ' + band.name_band">
+            <b-modal ref="my-modal" hide-footer :title="band.name_band">
                 <form @submit.prevent="creaEvento">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Nome evento {{band.id}}</label>
@@ -11,8 +11,12 @@
                         <input type="hidden" v-model="band.id" class="form-control">
                         <input type="hidden" v-model="idEvento" class="form-control">
                     </div>
-                    <button class="btn btn-dark mt-5">Aggiungi evento</button>
+                    <button class="btn btn-dark mt-5">
+                        <span class="text" v-if="idEvento == ''">Aggiungi evento</span>
+                        <span class="text" v-if="idEvento">Modifica Evento</span>
+                    </button>
                 </form>
+                    <button class="btn btn-danger mt-1" v-if="idEvento" @click="eliminaEvento(idEvento)">Elimina evento</button>
             </b-modal>
         </div>
     </div>
@@ -41,6 +45,7 @@ export default {
                 selectable: true,
                 selectMirror: true,
                 dayMaxEvents: true,
+                height: 550,
                 weekends: true,
                 initialView: 'dayGridMonth',
                 events: this.mostraEventi,
@@ -66,6 +71,15 @@ export default {
             })
         },
 
+        eliminaEvento(id) {
+            axios.delete('/elimina-evento', {params: {'id': this.idEvento}})
+            .then(response => {
+                this.$refs['my-modal'].hide()
+                // https://fullcalendar.io/docs/Calendar-refetchEvents
+                this.$refs.fullCalendar.getApi().refetchEvents()
+            })
+        },
+
         creaEvento() {
             axios.post('/crea-evento', {
                 nomeEvento: this.evento,
@@ -74,6 +88,9 @@ export default {
                 idEvento: this.idEvento,
             })
             .then(response => {
+                // Azzero
+                this.evento = '',
+                this.idEvento = '',
                 this.$refs['my-modal'].hide()
                 // https://fullcalendar.io/docs/Calendar-refetchEvents
                 this.$refs.fullCalendar.getApi().refetchEvents()

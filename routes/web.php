@@ -23,6 +23,8 @@ Route::middleware('can:haUnaBand')->group(function () {
     Route::post('/aggiorna-band', [BandController::class, 'aggiornaBand'])->name('band.aggiorna');
     Route::post('/crea-evento', [EventiController::class, 'creaEvento'])->name('evento.crea');
     Route::get('/mostra-eventi', [EventiController::class, 'mostraEventi'])->name('evento.mostra');
+    Route::delete('/elimina-evento', [EventiController::class, 'eliminaEvento'])->name('evento.elimina');
+
 
     // Metterlo sempre alla fine di tutte le rotte cosi se l'url non è quello delle atre rotte allora entra in questa
     Route::get('/{any?}', [HomeController::class, 'index'])->where('any', '.*');
