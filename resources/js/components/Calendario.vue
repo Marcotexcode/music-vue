@@ -7,7 +7,7 @@
                 <form @submit.prevent="creaEvento">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Nome evento {{band.id}}</label>
-                        <input type="text" v-model="evento" class="form-control">
+                        <input type="text" v-model="titoloEvento" class="form-control">
                         <input type="hidden" v-model="band.id" class="form-control">
                         <input type="hidden" v-model="idEvento" class="form-control">
                     </div>
@@ -38,7 +38,7 @@ export default {
             idEvento: '',
             dataCella: '',
             band:[],
-            evento: '',
+            titoloEvento: '',
             calendarOptions: {
                 plugins: [ dayGridPlugin, interactionPlugin ],
                 editable: true,
@@ -74,6 +74,9 @@ export default {
         eliminaEvento(id) {
             axios.delete('/elimina-evento', {params: {'id': this.idEvento}})
             .then(response => {
+                // Svuoto il form
+                this.titoloEvento = '',
+                this.idEvento = '',
                 this.$refs['my-modal'].hide()
                 // https://fullcalendar.io/docs/Calendar-refetchEvents
                 this.$refs.fullCalendar.getApi().refetchEvents()
@@ -82,14 +85,14 @@ export default {
 
         creaEvento() {
             axios.post('/crea-evento', {
-                nomeEvento: this.evento,
+                nomeEvento: this.titoloEvento,
                 idBand: this.band.id,
                 dataEvento: this.dataCella,
                 idEvento: this.idEvento,
             })
             .then(response => {
-                // Azzero
-                this.evento = '',
+                // Svuoto il form
+                this.titoloEvento = '',
                 this.idEvento = '',
                 this.$refs['my-modal'].hide()
                 // https://fullcalendar.io/docs/Calendar-refetchEvents
@@ -99,7 +102,7 @@ export default {
 
         modificaEvento(info) {
             this.$refs['my-modal'].show()
-            this.evento = info.event.title
+            this.titoloEvento = info.event.title
             this.idEvento = info.event.extendedProps.idEvento
             this.dataCella = info.event.startStr
         }
