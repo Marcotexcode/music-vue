@@ -2,33 +2,35 @@
     <div class="container mt-5">
         <div class="glass rounded text-center">
             <h2>Modifica Band</h2>
-           <form @submit.prevent="modificaBand" class="p-2">
+           <form @submit.prevent="modificaBand" class="p-2 d-flex">
+                <div>
+                    <div class="form-group">
+                        <label for="telefono"><h3>Cambia immagine</h3></label>
+                        <div class="alert alert-danger"  v-if="errors && errors.image_path">
+                                {{errors.image_path[0]}}
+                        </div>
+                        <input type="file" class="form-control" v-on:change="onChange">
+                        <input type="hidden" v-model="band.image_path" class="form-control" id="nameBand">
+                    </div>
+                    <div class="form-group my-4">
+                        <label for="nameBand"><h3>Nome Band</h3></label>
+                        <div class="alert alert-danger" v-if="errors && errors.name_band">
+                                {{errors.name_band[0]}}
+                        </div>
+                        <input type="text" v-model="band.name_band" class="form-control" id="nameBand">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono"><h3>Telefono</h3></label>
+                        <div class="alert alert-danger" v-if="errors && errors.phone_band">
+                                {{errors.phone_band[0]}}
+                        </div>
+                        <input type="text" v-model="band.phone_band" class="form-control" id="telefono">
+                    </div>
+                    <button class="btn btn-dark mt-5">Modifica</button>
+                </div>
                 <div class="form-group d-flex justify-content-center my-4">
                     <img class="img-band"  :src="'/storage/' + band.image_path" alt="Card image cap">
                 </div>
-                <div class="form-group">
-                    <label for="telefono"><h3>Cambia immagine</h3></label>
-                    <div class="alert alert-danger"  v-if="errors && errors.image_path">
-                            {{errors.image_path[0]}}
-                    </div>
-                    <input type="file" class="form-control" v-on:change="onChange">
-                    <input type="hidden" v-model="band.image_path" class="form-control" id="nameBand">
-                </div>
-                <div class="form-group my-4">
-                    <label for="nameBand"><h3>Nome Band</h3></label>
-                    <div class="alert alert-danger" v-if="errors && errors.name_band">
-                            {{errors.name_band[0]}}
-                    </div>
-                    <input type="text" v-model="band.name_band" class="form-control" id="nameBand">
-                </div>
-                <div class="form-group">
-                    <label for="telefono"><h3>Telefono</h3></label>
-                    <div class="alert alert-danger" v-if="errors && errors.phone_band">
-                            {{errors.phone_band[0]}}
-                    </div>
-                    <input type="text" v-model="band.phone_band" class="form-control" id="telefono">
-                </div>
-                <button class="btn btn-dark mt-5">Modifica</button>
             </form>
         </div>
     </div>

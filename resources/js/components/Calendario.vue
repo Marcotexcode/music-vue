@@ -46,6 +46,7 @@ export default {
                 selectMirror: true,
                 dayMaxEvents: true,
                 height: 550,
+                locale: 'it',
                 weekends: true,
                 initialView: 'dayGridMonth',
                 events: this.mostraEventi,
