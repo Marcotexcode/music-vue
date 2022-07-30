@@ -15,5 +15,7 @@ class Evento extends Model
         'nome_evento',
         'data_evento',
         'band_id',
+        'ora',
     ];
+
 }

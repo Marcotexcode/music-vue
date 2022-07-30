@@ -10,6 +10,7 @@
                         <input type="text" v-model="titoloEvento" class="form-control">
                         <input type="hidden" v-model="band.id" class="form-control">
                         <input type="hidden" v-model="idEvento" class="form-control">
+                        <input type="time" v-model="oraEvento" class="form-control">
                     </div>
                     <button class="btn btn-dark mt-5">
                         <span class="text" v-if="idEvento == ''">Aggiungi evento</span>
@@ -37,8 +38,9 @@ export default {
         return {
             idEvento: '',
             dataCella: '',
-            band:[],
             titoloEvento: '',
+            oraEvento: '',
+            band:[],
             calendarOptions: {
                 plugins: [ dayGridPlugin, interactionPlugin ],
                 editable: true,
@@ -78,6 +80,7 @@ export default {
                 // Svuoto il form
                 this.titoloEvento = '',
                 this.idEvento = '',
+                this.oraEvento = '',
                 this.$refs['my-modal'].hide()
                 // https://fullcalendar.io/docs/Calendar-refetchEvents
                 this.$refs.fullCalendar.getApi().refetchEvents()
@@ -90,11 +93,13 @@ export default {
                 idBand: this.band.id,
                 dataEvento: this.dataCella,
                 idEvento: this.idEvento,
+                oraEvento: this.oraEvento,
             })
             .then(response => {
                 // Svuoto il form
                 this.titoloEvento = '',
                 this.idEvento = '',
+                this.oraEvento = '',
                 this.$refs['my-modal'].hide()
                 // https://fullcalendar.io/docs/Calendar-refetchEvents
                 this.$refs.fullCalendar.getApi().refetchEvents()
@@ -106,6 +111,7 @@ export default {
             this.titoloEvento = info.event.title
             this.idEvento = info.event.extendedProps.idEvento
             this.dataCella = info.event.startStr
+            this.oraEvento = info.event.extendedProps.oraEvento
         }
     },
 
