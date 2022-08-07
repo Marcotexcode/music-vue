@@ -69,8 +69,8 @@ export default {
             const { start, end } = info;
             axios.get("/mostra-eventi", { params: { dataInizio: start, dataFine: end } })
             .then(response => {
+                // https://fullcalendar.io/docs/events-function
                 successCallback(response.data)
-
             })
         },
 
@@ -141,4 +141,5 @@ export default {
         border: 1px solid black;
         border: 1px solid black;
     }
+
 </style>

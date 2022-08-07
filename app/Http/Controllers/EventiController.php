@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Evento;
 use App\Models\Band;
-
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 
 class EventiController extends Controller
@@ -17,11 +17,12 @@ class EventiController extends Controller
         $mostraEventi = Evento::where('band_id', $band)->whereBetween('data_evento', [$request->dataInizio, $request->dataFine])->get();
 
         $arrayEventi = [];
-
         foreach ($mostraEventi as $mostraEvento) {
+            // https://www.php.net/manual/en/class.datetime.php
+            $date = new DateTime($mostraEvento->ora);
 
             $aggiuntaArrayEventi = [];
-            $aggiuntaArrayEventi['title'] = $mostraEvento->nome_evento;
+            $aggiuntaArrayEventi['title'] = $date->format('H:i') . ' ' . $mostraEvento->nome_evento;
             $aggiuntaArrayEventi['idEvento'] = $mostraEvento->id;
             $aggiuntaArrayEventi['oraEvento'] = $mostraEvento->ora;
             $aggiuntaArrayEventi['start'] = $mostraEvento->data_evento;
