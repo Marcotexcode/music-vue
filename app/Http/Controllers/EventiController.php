@@ -22,9 +22,10 @@ class EventiController extends Controller
             $date = new DateTime($mostraEvento->ora);
 
             $aggiuntaArrayEventi = [];
-            $aggiuntaArrayEventi['title'] = $date->format('H:i') . ' ' . $mostraEvento->nome_evento;
+            $aggiuntaArrayEventi['title'] = /* $date->format('H:i') . ' ' . */ $mostraEvento->nome_evento;
             $aggiuntaArrayEventi['idEvento'] = $mostraEvento->id;
             $aggiuntaArrayEventi['oraEvento'] = $mostraEvento->ora;
+            $aggiuntaArrayEventi['compenso'] = $mostraEvento->compenso;
             $aggiuntaArrayEventi['start'] = $mostraEvento->data_evento;
             $aggiuntaArrayEventi['backgroundColor'] = '#343a40';
             $aggiuntaArrayEventi['borderColor'] = '#343a40';
@@ -42,6 +43,7 @@ class EventiController extends Controller
             'idBand' => 'required',
             'dataEvento' => 'required',
             'oraEvento' => 'required',
+            'compenso' => 'required',
         ]);
 
         $evento = Evento::updateOrCreate(
@@ -54,6 +56,7 @@ class EventiController extends Controller
                 'data_evento' => $request->input('dataEvento'),
                 'band_id' => $request->input('idBand'),
                 'ora' => $request->input('oraEvento'),
+                'compenso' => $request->input('compenso'),
             ]
         );
 

@@ -6,11 +6,14 @@
             <b-modal ref="my-modal" hide-footer :title="band.name_band">
                 <form @submit.prevent="creaEvento">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Nome evento {{band.id}}</label>
+                        <label for="exampleInputEmail1">Nome evento</label>
                         <input type="text" v-model="titoloEvento" class="form-control">
                         <input type="hidden" v-model="band.id" class="form-control">
                         <input type="hidden" v-model="idEvento" class="form-control">
+                        <label for="exampleInputEmail1">Ora</label>
                         <input type="time" v-model="oraEvento" class="form-control">
+                        <label for="exampleInputEmail1">Compenso</label>
+                        <input type="text" v-model="compenso" class="form-control">
                     </div>
                     <button class="btn btn-dark mt-5">
                         <span class="text" v-if="idEvento == ''">Aggiungi evento</span>
@@ -40,6 +43,7 @@ export default {
             dataCella: '',
             titoloEvento: '',
             oraEvento: '',
+            compenso: '',
             band:[],
             calendarOptions: {
                 plugins: [ dayGridPlugin, interactionPlugin ],
@@ -47,6 +51,8 @@ export default {
                 selectable: true,
                 selectMirror: true,
                 dayMaxEvents: true,
+                // https://fullcalendar.io/docs/displayEventTime
+                //displayEventTime: true,
                 height: 550,
                 locale: 'it',
                 weekends: true,
@@ -81,6 +87,7 @@ export default {
                 this.titoloEvento = '',
                 this.idEvento = '',
                 this.oraEvento = '',
+                this.compenso = '',
                 this.$refs['my-modal'].hide()
                 // https://fullcalendar.io/docs/Calendar-refetchEvents
                 this.$refs.fullCalendar.getApi().refetchEvents()
@@ -94,12 +101,14 @@ export default {
                 dataEvento: this.dataCella,
                 idEvento: this.idEvento,
                 oraEvento: this.oraEvento,
+                compenso: this.compenso,
             })
             .then(response => {
                 // Svuoto il form
                 this.titoloEvento = '',
                 this.idEvento = '',
                 this.oraEvento = '',
+                this.compenso = '',
                 this.$refs['my-modal'].hide()
                 // https://fullcalendar.io/docs/Calendar-refetchEvents
                 this.$refs.fullCalendar.getApi().refetchEvents()
@@ -112,6 +121,7 @@ export default {
             this.idEvento = info.event.extendedProps.idEvento
             this.dataCella = info.event.startStr
             this.oraEvento = info.event.extendedProps.oraEvento
+            this.compenso = info.event.extendedProps.compenso
         }
     },
 
