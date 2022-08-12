@@ -63,7 +63,7 @@
                 formData.append('name_band', this.band.name_band)
                 formData.append('phone_band', this.band.phone_band)
 
-                axios.post('/aggiorna-band', formData)
+                axios.post('/band/aggiorna', formData)
                 .then(response => {
                     // Torna alla view della band
                     this.$router.push({ name: 'band'})

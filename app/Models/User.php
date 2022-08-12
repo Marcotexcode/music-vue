@@ -13,7 +13,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    const NON_HA_UNA_BAND  = 0; // Se non ha una band puo crearla
+    const NON_HA_UNA_BAND  = 0; // Se non ha una band può crearla
     const HA_UNA_BAND      = 1; // Se ha già una band non può crearne un'altra
 
     /**

@@ -14,20 +14,26 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware('can:nonHaUnaBand')->group(function () {
-    Route::view('/createBand', 'band.create');
-    Route::post('/bande', [BandController::class, 'store'])->name('createBand');
+    Route::view('/band/crea', 'band.create');
+    Route::post('/band/salva', [BandController::class, 'store'])->name('band.salva');
 });
 
+// Band
 Route::middleware('can:haUnaBand')->group(function () {
     Route::get('/lista-band', [BandController::class, 'index'])->name('band.index');
-    Route::post('/aggiorna-band', [BandController::class, 'aggiornaBand'])->name('band.aggiorna');
-    Route::post('/crea-evento', [EventiController::class, 'creaEvento'])->name('evento.crea');
-    Route::get('/mostra-eventi', [EventiController::class, 'mostraEventi'])->name('evento.mostra');
-    Route::delete('/elimina-evento', [EventiController::class, 'eliminaEvento'])->name('evento.elimina');
-
-
-    // Metterlo sempre alla fine di tutte le rotte cosi se l'url non è quello delle atre rotte allora entra in questa
-    Route::get('/{any?}', [HomeController::class, 'index'])->where('any', '.*');
+    Route::post('/band/aggiorna', [BandController::class, 'aggiornaBand'])->name('band.aggiorna');
 });
 
+// Eventi
+Route::middleware('can:haUnaBand')->group(function () {
+    Route::get('/eventi', [EventiController::class, 'mostraEventi'])->name('evento.mostra');
+    Route::post('/evento/salva', [EventiController::class, 'creaEvento'])->name('evento.crea');
+    Route::delete('/evento/elimina', [EventiController::class, 'eliminaEvento'])->name('evento.elimina');
+});
+
+// Rotte vue
+Route::middleware('can:haUnaBand')->group(function () {
+    // Metterlo sempre alla fine di tutte le rotte cosi se l'url non è quello delle altre rotte allora entra in questa
+    Route::get('/{any?}', [HomeController::class, 'index'])->where('any', '.*');
+});
 

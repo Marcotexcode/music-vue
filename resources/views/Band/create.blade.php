@@ -8,7 +8,7 @@
                     <div class="card-header">Crea Band</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('createBand')}}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('band.salva')}}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row mb-3">

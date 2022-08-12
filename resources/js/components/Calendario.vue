@@ -73,7 +73,7 @@ export default {
         mostraEventi(info, successCallback) {
             // L'assegnazione destrutturante è una sintassi speciale introdotta in ES6, per assegnare efficacemente dei valori presi da un oggetto.
             const { start, end } = info;
-            axios.get("/mostra-eventi", { params: { dataInizio: start, dataFine: end } })
+            axios.get("/eventi", { params: { dataInizio: start, dataFine: end } })
             .then(response => {
                 // https://fullcalendar.io/docs/events-function
                 successCallback(response.data)
@@ -81,7 +81,7 @@ export default {
         },
 
         eliminaEvento(id) {
-            axios.delete('/elimina-evento', {params: {'id': this.idEvento}})
+            axios.delete('/evento/elimina', {params: {'id': this.idEvento}})
             .then(response => {
                 // Svuoto il form
                 this.titoloEvento = '',
@@ -95,7 +95,7 @@ export default {
         },
 
         creaEvento() {
-            axios.post('/crea-evento', {
+            axios.post('/evento/salva', {
                 nomeEvento: this.titoloEvento,
                 idBand: this.band.id,
                 dataEvento: this.dataCella,
