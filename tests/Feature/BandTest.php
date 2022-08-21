@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class BandTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     public function test_utente_che_non_ha_una_band_può_creare_band()
     {
@@ -97,6 +97,35 @@ class BandTest extends TestCase
         ]);
     }
 
-    // Creare un test che modifica la band e un test che modifica l'immagine e asserire
-    // anche che una volta modificata l'immagine quella vecchia venga cancellata
+    public function test_a_immagine_modificata_quella_vecchia_viene_eliminata()
+    {
+        Storage::fake('test_immagine');
+
+        $utente = User::factory()->create([
+            'hasBand' => User::HA_UNA_BAND,
+        ]);
+
+        $immagineVecchia = UploadedFile::fake()->image('vecchia.jpeg');
+
+        $immagineNuova = UploadedFile::fake()->image('nuova.jpeg');
+
+        $recordBand = Band::factory()->create([
+            'name_band' => 'Pippo Band',
+            'phone_band' => '4335654',
+            'user_id' => $utente->id,
+            'image_path' => $immagineVecchia,
+        ]);
+
+        $response = $this->actingAs($utente)->post("/band/aggiorna", [
+            'img_vecchia' => UploadedFile::fake()->image('vecchia.jpeg'),
+            'idBand' => $recordBand->id,
+            'name_band' => 'Pluto Band',
+            'phone_band' => '4335654',
+            'user_id' => $utente->id,
+            'image_path' => $immagineNuova,
+        ]);
+
+        Storage::disk('test_immagine')->assertExists("immagine_band/{$immagineNuova->hashName()}");
+        Storage::disk('test_immagine')->assertMissing("immagine_band/{$immagineVecchia->hashName()}");
+    }
 }
