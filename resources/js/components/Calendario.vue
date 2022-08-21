@@ -7,12 +7,15 @@
                 <form @submit.prevent="creaEvento">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Nome evento</label>
+                        <div id="errorenomeEvento"></div>
                         <input type="text" v-model="titoloEvento" class="form-control">
                         <input type="hidden" v-model="band.id" class="form-control">
                         <input type="hidden" v-model="idEvento" class="form-control">
                         <label for="exampleInputEmail1">Ora</label>
+                        <div id="erroreoraEvento"></div>
                         <input type="time" v-model="oraEvento" class="form-control">
                         <label for="exampleInputEmail1">Compenso</label>
+                        <div id="errorecompenso"></div>
                         <input type="text" v-model="compenso" class="form-control">
                     </div>
                     <button class="btn btn-dark mt-5">
@@ -112,7 +115,21 @@ export default {
                 this.$refs['my-modal'].hide()
                 // https://fullcalendar.io/docs/Calendar-refetchEvents
                 this.$refs.fullCalendar.getApi().refetchEvents()
-            })
+            }).catch(function(error) {
+                    errorenomeEvento.textContent = '';
+                    erroreoraEvento.textContent = '';
+                    errorecompenso.textContent = '';
+
+                    var risposteErrori = error.response.data.errors
+
+                    for (const chiave in risposteErrori) {
+                        if (chiave) {
+                            var errore = document.getElementById('errore' + chiave)
+                            errore.innerHTML = risposteErrori[chiave].join("<br>")
+                            errore.classList.add('alert-danger', 'my-1')
+                        }
+                    }
+            });
         },
 
         modificaEvento(info) {
