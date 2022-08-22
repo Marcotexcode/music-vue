@@ -54,8 +54,6 @@ export default {
                 selectable: true,
                 selectMirror: true,
                 dayMaxEvents: true,
-                // https://fullcalendar.io/docs/displayEventTime
-                //displayEventTime: true,
                 height: 550,
                 locale: 'it',
                 weekends: true,
