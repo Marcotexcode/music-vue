@@ -5,7 +5,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\BandController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventiController;
-
+use App\Http\Controllers\LocaleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,6 +22,11 @@ Route::middleware('can:nonHaUnaBand')->group(function () {
 Route::middleware('can:haUnaBand')->group(function () {
     Route::get('/lista-band', [BandController::class, 'index'])->name('band.index');
     Route::post('/band/aggiorna', [BandController::class, 'aggiornaBand'])->name('band.aggiorna');
+});
+
+// Locali
+Route::middleware('can:haUnaBand')->group(function () {
+    Route::get('/lista-locali', [LocaleController::class, 'index'])->name('locale.index');
 });
 
 // Eventi

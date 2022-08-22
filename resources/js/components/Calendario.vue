@@ -17,6 +17,13 @@
                         <label for="exampleInputEmail1">Compenso</label>
                         <div id="errorecompenso"></div>
                         <input type="text" v-model="compenso" class="form-control">
+                        <label for="exampleInputEmail1">Locale</label>
+
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Scegli</option>
+                            <option v-for="locale in locali" :key="locale.id" :value="locale.nome">{{ locale.nome}}</option>
+                        </select>
+
                     </div>
                     <button class="btn btn-dark mt-5">
                         <span class="text" v-if="idEvento == ''">Aggiungi evento</span>
@@ -48,6 +55,7 @@ export default {
             oraEvento: '',
             compenso: '',
             band:[],
+            locali:[],
             calendarOptions: {
                 plugins: [ dayGridPlugin, interactionPlugin ],
                 editable: true,
@@ -144,6 +152,11 @@ export default {
         axios.get('/lista-band')
             .then(response => {
                 this.band = response.data[0];
+            });
+
+        axios.get('/lista-locali')
+            .then(response => {
+                this.locali = response.data;
             });
     },
 }
