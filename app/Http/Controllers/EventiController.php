@@ -43,7 +43,7 @@ class EventiController extends Controller
             'idBand' => 'required',
             'dataEvento' => 'required',
             'oraEvento' => 'required',
-            'compenso' => 'required',
+            'compenso' => 'required|numeric',
         ]);
 
         $evento = Evento::updateOrCreate(
