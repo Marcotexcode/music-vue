@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AggiuntaCampoCompensoAllaTabellaEventi extends Migration
+class AggiuntaCampoLocaleIdNellaTabellaEventi extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AggiuntaCampoCompensoAllaTabellaEventi extends Migration
     public function up()
     {
         Schema::table('eventi', function (Blueprint $table) {
-            $table->float('compenso', 8, 2)->after('ora');
+            $table->unsignedBigInteger('locale_id')->unsigned()->after('band_id');
+            $table->foreign('locale_id')->references('id')->on('locale')->onDelete('cascade');
         });
     }
 
@@ -26,7 +27,7 @@ class AggiuntaCampoCompensoAllaTabellaEventi extends Migration
     public function down()
     {
         Schema::table('eventi', function (Blueprint $table) {
-            $table->dropColumn('compenso')->after('ora');
+            $table->dropColumn('locale_id')->unsigned()->after('band_id');
         });
     }
 }
