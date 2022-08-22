@@ -27,6 +27,7 @@ class EventiController extends Controller
             $aggiuntaArrayEventi['oraEvento'] = $mostraEvento->ora;
             $aggiuntaArrayEventi['compenso'] = $mostraEvento->compenso;
             $aggiuntaArrayEventi['start'] = $mostraEvento->data_evento;
+            $aggiuntaArrayEventi['locale'] = $mostraEvento->locale_id;
             $aggiuntaArrayEventi['backgroundColor'] = '#343a40';
             $aggiuntaArrayEventi['borderColor'] = '#343a40';
 
@@ -44,6 +45,7 @@ class EventiController extends Controller
             'dataEvento' => 'required',
             'oraEvento' => 'required',
             'compenso' => 'required|numeric',
+            'locale' => 'required',
         ]);
 
         $evento = Evento::updateOrCreate(
@@ -57,6 +59,7 @@ class EventiController extends Controller
                 'band_id' => $request->input('idBand'),
                 'ora' => $request->input('oraEvento'),
                 'compenso' => $request->input('compenso'),
+                'locale_id' => $request->input('locale'),
             ]
         );
 

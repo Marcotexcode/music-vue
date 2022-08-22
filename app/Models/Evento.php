@@ -17,6 +17,7 @@ class Evento extends Model
         'band_id',
         'ora',
         'compenso',
+        'locale_id',
     ];
 
 }
