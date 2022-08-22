@@ -1,5 +1,5 @@
 <template>
-    <div class="cont bg-dark" :style="{ width: larghezza + 'px' }">
+    <div class="cont bg-dark height-sidebar" :style="{ width: larghezza + 'px' }">
         <i class="fa-solid button fa-arrow-right" v-if="larghezza == 70" @click="apri"></i>
         <i class="fa-solid button fa-xmark" v-if="larghezza == 250" @click="chiudi"></i>
         <ul class="unordered_list">
@@ -61,6 +61,9 @@
     .v-enter-active {
         display: none;
         transition: display 0.5s ease;
+    }
+    .height-sidebar {
+        height: calc(100vh - 56px);
     }
 
 
