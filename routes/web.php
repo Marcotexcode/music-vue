@@ -26,7 +26,8 @@ Route::middleware('can:haUnaBand')->group(function () {
 
 // Locali
 Route::middleware('can:haUnaBand')->group(function () {
-    Route::get('/lista-locali', [LocaleController::class, 'index'])->name('locale.index');
+    Route::get('/locale', [LocaleController::class, 'index'])->name('locale.index');
+    Route::post('/locale/salva', [LocaleController::class, 'creaLocale'])->name('locale.crea');
 });
 
 // Eventi

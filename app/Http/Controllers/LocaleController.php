@@ -19,4 +19,9 @@ class LocaleController extends Controller
 
         return response()->json($locali);
     }
+
+    public function creaLocale(Request $request)
+    {
+        $band = Locale::create($request->all());
+    }
 }

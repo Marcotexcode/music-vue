@@ -33,7 +33,11 @@
                         <span class="text" v-if="idEvento">Modifica Evento</span>
                     </button>
                 </form>
+                <button class="btn btn-success" @click="show = !show">Aggiungi Locale</button>
                 <button class="btn btn-danger mt-1" v-if="idEvento" @click="eliminaEvento(idEvento)">Elimina evento</button>
+                <Transition>
+                    <CreaLocale v-if="show" :idBand="band.id" @showFalse="chiudiFormLocale"/>
+                </Transition>
             </b-modal>
         </div>
     </div>
@@ -42,13 +46,15 @@
 <script>
 import '@fullcalendar/core/vdom'
 import FullCalendar from '@fullcalendar/vue'
+import CreaLocale from './CreaLocale.vue'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 
 export default {
     name: 'Calendario',
     components: {
-        FullCalendar
+        FullCalendar,
+        CreaLocale
     },
     data() {
         return {
@@ -58,6 +64,7 @@ export default {
             oraEvento: '',
             compenso: '',
             locale: '',
+            show: '',
             band:[],
             locali:[],
             calendarOptions: {
@@ -77,6 +84,19 @@ export default {
         }
     },
     methods: {
+        chiudiFormLocale(ritornaFalse){
+            // Alla variabile show gli il valore passato dal parametro
+            // Che sarebbe false
+            this.show = ritornaFalse;
+
+            // Faccio una chiamata get per riprendere il nuovo elenco
+            // di locali
+            axios.get('/locale')
+            .then(response => {
+                this.locali = response.data;
+            });
+        },
+
         aggiungiEvento(info) {
             // https://vuejs.org/guide/essentials/template-refs.html
             this.$refs['my-modal'].show()
@@ -163,7 +183,7 @@ export default {
                 this.band = response.data[0];
             });
 
-        axios.get('/lista-locali')
+        axios.get('/locale')
             .then(response => {
                 this.locali = response.data;
             });
@@ -181,11 +201,24 @@ export default {
         color: black;
         text-decoration: none;
     }
-    .fc-theme-standard td, .fc-theme-standard th {
+    .fc-theme-standard td,
+    .fc-theme-standard th {
         border: 1px solid black;
     }
     .fc-theme-standard .fc-scrollgrid {
         border: 1px solid black;
         border: 1px solid black;
     }
+
+    /* we will explain what these classes do next! */
+    .v-enter-active,
+    .v-leave-active {
+        transition: opacity 0.5s ease;
+    }
+
+    .v-enter-from,
+    .v-leave-to {
+        opacity: 0;
+    }
+
 </style>
