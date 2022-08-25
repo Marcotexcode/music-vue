@@ -7,7 +7,7 @@
                 <form @submit.prevent="creaEvento">
                     <div class="form-group">
                         <!-- Nome Evento -->
-                        <label for="exampleInputEmail1">Nome evento</label>
+                        <label for="exampleInputEmail1">Titolo evento</label>
                         <div id="errorenomeEvento"></div>
                         <input type="text" v-model="titoloEvento" class="form-control">
                         <input type="hidden" v-model="band.id" class="form-control">

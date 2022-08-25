@@ -30,6 +30,15 @@
                     </transition>
                 </router-link>
             </li>
+
+            <li class="list">
+                <router-link :to="{name: 'locandina'}" class="text link">
+                    <i class="fa-solid icon fa-eye"></i>
+                    <transition>
+                        <span class="text" v-if="larghezza === 250">Locandina</span>
+                    </transition>
+                </router-link>
+            </li>
         </ul>
     </div>
 </template>

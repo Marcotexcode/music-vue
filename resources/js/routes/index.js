@@ -4,6 +4,7 @@ import Calendario from '../components/Calendario.vue';
 import Band from '../components/Band.vue';
 import Home from '../components/Home.vue';
 import ModificaBand from '../components/ModificaBand.vue';
+import Locandina from '../components/Locandina.vue';
 
 
 // Esporto le rotte dei vari componenti vue
@@ -27,5 +28,10 @@ export const routes = [
 		name: 'modifica-band',
         path: '/modifica-band/:id',
         component: ModificaBand
+    },
+    {
+		name: 'locandina',
+        path: '/locandina',
+        component: Locandina
     },
 ];
