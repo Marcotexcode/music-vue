@@ -6,6 +6,7 @@ use App\Http\Controllers\BandController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventiController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\LocandinaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +36,12 @@ Route::middleware('can:haUnaBand')->group(function () {
     Route::get('/eventi', [EventiController::class, 'mostraEventi'])->name('evento.mostra');
     Route::post('/evento/salva', [EventiController::class, 'creaEvento'])->name('evento.crea');
     Route::delete('/evento/elimina', [EventiController::class, 'eliminaEvento'])->name('evento.elimina');
+});
+
+// Locandina
+Route::middleware('can:haUnaBand')->group(function () {
+    Route::get('locandina/mostra', [LocandinaController::class, 'index'])->name('mostra.locandina');
+    Route::post('locandina/filtro', [LocandinaController::class, 'filtroLocandina'])->name('filtro.locandina');
 });
 
 // Rotte vue
