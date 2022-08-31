@@ -14,7 +14,7 @@
                             <div class="row mb-3">
                                 <label for="name" class="col-md-4 col-form-label text-md-end">Immagine</label>
                                 <div class="col-md-6">
-                                    <input type="file"  name="image" value="{{ old('name') }}">
+                                    <input type="file"  name="image_path" value="{{ old('name') }}">
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">

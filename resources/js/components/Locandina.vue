@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <h3 class="card-title testo-locandina"><strong>{{locandina.nome_evento}}</strong></h3>
                         <h6 class="card-text testo-locandina">Locale: {{locandina.nome}}</h6>
-                        <h6 class="card-text testo-locandina">{{locandina.indirizzo}} - {{locandina.provincia}} - {{locandina.regione}} - Ora: {{locandina.ora}}</h6>
+                        <h6 class="card-text testo-locandina">{{locandina.indirizzo}} - {{locandina.provincia}} - {{locandina.regione}} - Ore: {{locandina.ora}}</h6>
                     </div>
                 </div>
                 <button class="btn btn-dark">Stampa</button>

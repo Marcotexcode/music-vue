@@ -27,4 +27,9 @@ class Band extends Model
     {
         return $this->belongsTo(Evento::class);
     }
+
+    public function locali()
+    {
+        return $this->hasMany(Locale::class);
+    }
 }

@@ -23,11 +23,11 @@ class BandController extends Controller
         $request->validate([
             'nameBand' => 'required',
             'phoneBand' => 'required',
-            'image' => 'required',
+            'image_path' => 'required',
         ]);
 
         // Salvo l'immagine
-        $img = Storage::put('immagine_band', $request->image);
+        $img = Storage::put('immagine_band', $request->image_path);
 
         $band = Band::create([
             'name_band' => $request->input('nameBand'),
@@ -60,6 +60,7 @@ class BandController extends Controller
             'phone_band' => $request->phone_band,
             'image_path' => $nuovaImmagine,
         ]);
+
         return response()->json($val);
     }
 }
