@@ -14,12 +14,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Band create
 Route::middleware('can:nonHaUnaBand')->group(function () {
     Route::view('/band/crea', 'band.create');
     Route::post('/band/salva', [BandController::class, 'store'])->name('band.salva');
 });
 
-// Band
+// Band update
 Route::middleware('can:haUnaBand')->group(function () {
     Route::get('/lista-band', [BandController::class, 'index'])->name('band.index');
     Route::post('/band/aggiorna', [BandController::class, 'aggiornaBand'])->name('band.aggiorna');
