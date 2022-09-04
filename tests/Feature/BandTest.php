@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class BandTest extends TestCase
 {
-    //use RefreshDatabase;
+    use RefreshDatabase;
 
     public function test_utente_che_non_ha_una_band_può_creare_band()
     {
@@ -38,7 +38,7 @@ class BandTest extends TestCase
         ]);
     }
 
-    public function test_utente_che_ha_già_una_band_non_può_crearne_un_altra()
+    public function test_utente_che_ha_già_una_band_non_può_creare_un_altra_band()
     {
         Storage::fake('test_immagine');
 
