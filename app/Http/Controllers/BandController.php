@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+
 use App\Models\User;
 use App\Models\Band;
 
@@ -12,34 +13,41 @@ class BandController extends Controller
 {
     public function index()
     {
-        $bands = Band::where('user_id', Auth::id())->get();
+        $bands = Band::where('user_id', Auth::user()->id)->get();
 
         return response()->json($bands);
     }
 
     public function store(Request $request)
     {
-        $request->validate($this->validazione());
+        $request->validate([
+            'nameBand' => 'required',
+            'phoneBand' => 'required',
+            'image' => 'required',
+        ]);
 
         // Salvo l'immagine
-        $img = Storage::put('immagine_band', $request->image_path);
+        $img = Storage::put('immagine_band', $request->image);
 
         $band = Band::create([
             'name_band' => $request->input('nameBand'),
             'phone_band' => $request->input('phoneBand'),
             'image_path' => $img,
-            'user_id' => Auth::id(),
+            'user_id' => Auth::user()->id,
         ]);
 
         // Se la band ha come user_id l'utente allora modifica hasBand a 1
-        $band->user->update(['hasBand' => User::HA_UNA_BAND]);
-
+        $user = User::where('id', $band->user_id)->update(['hasBand' => User::HA_UNA_BAND]);
         return redirect('band');
     }
 
     public function aggiornaBand(Request $request)
     {
-        $val = $request->validate($this->validazione());
+        $val = $request->validate([
+            'name_band' => 'required',
+            'phone_band' => 'required',
+            'image_path' => 'required',
+        ]);
 
         // Salvo la nuova immagine
         $nuovaImmagine = Storage::put('immagine_band', $request->image_path);
@@ -52,18 +60,6 @@ class BandController extends Controller
             'phone_band' => $request->phone_band,
             'image_path' => $nuovaImmagine,
         ]);
-
         return response()->json($val);
-    }
-
-    public function validazione()
-    {
-        $val = [
-            'name_band' => 'required',
-            'phone_band' => 'required',
-            'image_path' => 'required',
-        ];
-
-        return $val;
     }
 }

@@ -11,17 +11,17 @@ class LocaleController extends Controller
 {
     public function index()
     {
-        $bands = Band::where('user_id', Auth::id())->get();
+        $bands = Band::where('user_id', Auth::user()->id)->get();
 
         foreach ($bands as $band) {
-            $locali = $band->locali;
+            $locali = Locale::where('band_id', $band->id)->get();
         }
 
         return response()->json($locali);
     }
 
-    public function creaLocale(Locale $locale, Request $request)
+    public function creaLocale(Request $request)
     {
-        $locale->create($request->all());
+        $band = Locale::create($request->all());
     }
 }

@@ -6,6 +6,7 @@
             <div class="col-md-8">
                 <div class="card glass">
                     <div class="card-header">Crea Band</div>
+
                     <div class="card-body">
                         <form method="POST" action="{{ route('band.salva')}}" enctype="multipart/form-data">
                             @csrf
@@ -13,10 +14,13 @@
                             <div class="row mb-3">
                                 <label for="name" class="col-md-4 col-form-label text-md-end">Immagine</label>
                                 <div class="col-md-6">
-                                    @error('image_path')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    <input type="file"  name="image" value="{{ old('name') }}">
+
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
-                                    <input type="file"  name="image_path" value="{{ old('name') }}">
                                 </div>
                             </div>
 
@@ -24,9 +28,6 @@
                                 <label for="name" class="col-md-4 col-form-label text-md-end">Nome Band</label>
 
                                 <div class="col-md-6">
-                                    @error('name_band')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
                                     <input id="name" type="text" class="form-control" name="nameBand" value="">
 
                                     @error('name')
@@ -41,9 +42,6 @@
                                 <label for="email" class="col-md-4 col-form-label text-md-end">Telefonos</label>
 
                                 <div class="col-md-6">
-                                    @error('phone_band')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
                                     <input id="email" type="number" class="form-control" name="phoneBand" value="">
 
                                     @error('email')
