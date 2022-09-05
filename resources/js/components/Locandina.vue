@@ -16,13 +16,6 @@
                 </form>
             </div>
             <div v-if="locandina" class="col-4">
-                <div class="sfondo_locandina mb-3" id="stampa">
-                    <img :src="'/storage/' + locandina.image_path" class="dimensione_immagine" alt="locandina">
-                    <div class="mb-4">
-                        <h3 class="testo_evento_locandina testo-locandina"><strong>{{locandina.nome_evento}}</strong></h3>
-                        <p class="testo_locale_locandina testo-locandina">{{locandina.nome}}</p>
-                        <p class="testo-locandina">{{dataLocandina}} | Ore {{oraLocandina}}</p>
-                        <p class="testo-locandina">{{locandina.indirizzo}} - {{locandina.provincia}} </p>
                 <div class="card mb-3">
                     <img :src="'/storage/' + locandina.image_path" class="card-img-top" alt="locandina">
                     <div class="card-body">
@@ -31,16 +24,14 @@
                         <h6 class="card-text testo-locandina">{{locandina.indirizzo}} - {{locandina.provincia}} - {{locandina.regione}} - Ore: {{locandina.ora}}</h6>
                     </div>
                 </div>
-                <button class="btn btn-dark" @click="stampa()">Stampa</button>
+                <button class="btn btn-dark">Stampa</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import axios from 'axios';
-    import Printjs from "print-js";
-    import moment from 'moment'
+import axios from 'axios';
 
     export default ({
         name: "Locandina",
@@ -50,20 +41,9 @@
                 dataEvento: '',
                 oraEvento: '',
                 locandina: '',
-                dataLocandina: '',
-                oraLocandina: '',
             }
         },
         methods: {
-            stampa(){
-                Printjs({
-                    printable: "stampa",
-                    type: "html",
-                    maxWidth: 1000,
-                    targetStyles: ['*'],
-                })
-            },
-
             filtroLocandina(){
                 axios.post('locandina/filtro', {
                     dataEvento: this.dataEvento,
@@ -72,13 +52,12 @@
                 axios.get('locandina/mostra')
                 .then(response => {
                     this.locandina = response.data[0]
-                    this.oraLocandina = moment(String(this.locandina.ora), 'HH').format('HH:mm')
-                    moment.locale('it')
-                    this.dataLocandina = moment(String(this.locandina.data_evento)).format('DD MMMM')
                 });
             }
         },
     });
+
+
 
 </script>
 
@@ -86,19 +65,4 @@
     .testo-locandina {
         font-family: monospace;
     }
-    .sfondo_locandina {
-        background:white;
-    }
-    .dimensione_immagine {
-        width: 100%;
-    }
-    .testo_evento_locandina {
-        font-size: 30px;
-        text-transform: uppercase;
-    }
-
-    .testo_locale_locandina {
-        font-size: 20px;
-    }
-
 </style>
