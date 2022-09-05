@@ -51,4 +51,3 @@ Route::middleware('can:haUnaBand')->group(function () {
     Route::get('/{any?}', [HomeController::class, 'index'])->where('any', '.*');
 });
 
-
