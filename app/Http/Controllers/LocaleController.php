@@ -9,7 +9,7 @@ use App\Models\Locale;
 
 class LocaleController extends Controller
 {
-    public function index()
+    public function lista()
     {
         $bands = Band::where('user_id', Auth::user()->id)->get();
 
@@ -20,8 +20,41 @@ class LocaleController extends Controller
         return response()->json($locali);
     }
 
-    public function creaLocale(Request $request)
+    public function salva(Request $request)
     {
-        $band = Locale::create($request->all());
+        $locale = new Locale();
+
+        $this->validaESalva($locale, $request);
+    }
+
+    private function validaESalva(Locale $locale, Request $request)
+	{
+        $rules = [
+			'nome'      => 'required',
+            'indirizzo' => 'required',
+            'provincia' => 'required',
+            'cap'       => 'required',
+            'regione'   => 'required',
+            'telefono'  => 'required',
+            'tipo'      => 'required',
+            'band_id'   => 'required',
+		];
+
+        $request->validate($rules);
+
+        // Se hai già un'istanza del modello, puoi utilizzare il metodo fill
+        // per popolarla con una matrice di attributi
+        $locale->fill([
+			'nome'      => $request->nome,
+            'indirizzo' => $request->indirizzo,
+            'provincia' => $request->provincia,
+            'cap'       => $request->cap,
+            'regione'   => $request->regione,
+            'telefono'  => $request->telefono,
+            'tipo'      => $request->tipo,
+            'band_id'   => $request->band_id,
+		]);
+
+		return $locale->save();
     }
 }

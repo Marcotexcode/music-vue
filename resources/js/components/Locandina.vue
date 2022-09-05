@@ -23,12 +23,14 @@
                         <p class="testo_locale_locandina testo-locandina">{{locandina.nome}}</p>
                         <p class="testo-locandina">{{dataLocandina}} | Ore {{oraLocandina}}</p>
                         <p class="testo-locandina">{{locandina.indirizzo}} - {{locandina.provincia}} </p>
-                <div class="card mb-3">
-                    <img :src="'/storage/' + locandina.image_path" class="card-img-top" alt="locandina">
-                    <div class="card-body">
-                        <h3 class="card-title testo-locandina"><strong>{{locandina.nome_evento}}</strong></h3>
-                        <h6 class="card-text testo-locandina">Locale: {{locandina.nome}}</h6>
-                        <h6 class="card-text testo-locandina">{{locandina.indirizzo}} - {{locandina.provincia}} - {{locandina.regione}} - Ore: {{locandina.ora}}</h6>
+                    </div>
+                    <div class="card mb-3">
+                        <img :src="'/storage/' + locandina.image_path" class="card-img-top" alt="locandina">
+                        <div class="card-body">
+                            <h3 class="card-title testo-locandina"><strong>{{locandina.nome_evento}}</strong></h3>
+                            <h6 class="card-text testo-locandina">Locale: {{locandina.nome}}</h6>
+                            <h6 class="card-text testo-locandina">{{locandina.indirizzo}} - {{locandina.provincia}} - {{locandina.regione}} - Ore: {{locandina.ora}}</h6>
+                        </div>
                     </div>
                 </div>
                 <button class="btn btn-dark" @click="stampa()">Stampa</button>
