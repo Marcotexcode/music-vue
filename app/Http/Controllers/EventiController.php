@@ -37,7 +37,7 @@ class EventiController extends Controller
         return response()->json($arrayEventi);
     }
 
-    public function creaEvento(Evento $evento, Request $request) {
+    public function creaEvento(Request $request) {
 
         $request->validate([
             'nomeEvento' => 'required',
@@ -48,7 +48,7 @@ class EventiController extends Controller
             'locale' => 'required',
         ]);
 
-        $evento->updateOrCreate(
+        $evento = Evento::updateOrCreate(
             [
                 'id' => $request->input('idEvento'),
                 'data_evento' => $request->input('dataEvento'),
@@ -62,10 +62,11 @@ class EventiController extends Controller
                 'locale_id' => $request->input('locale'),
             ]
         );
+
     }
 
-    public function eliminaEvento(Evento $evento, Request $request)
+    public function eliminaEvento(Request $request)
     {
-        $evento->whereIn('id', $request)->delete();
+        $prova = Evento::whereIn('id', $request)->delete();
     }
 }

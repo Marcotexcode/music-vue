@@ -60,7 +60,7 @@
                     telefono: this.telefonoLocale,
                     tipo: this.tipoLocale,
                     band_id: this.idBand,
-                }).then(response => {
+                }) .then(response => {
                     this.$emit('showFalse', this.showFalse)
                 })
             }
