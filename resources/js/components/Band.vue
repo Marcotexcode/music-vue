@@ -28,7 +28,7 @@
 
         methods: {
             getBand() {
-                axios.get('/lista-band')
+                axios.get('/band/lista')
                 .then(response => {
                     this.listaBand = response.data;
                 });

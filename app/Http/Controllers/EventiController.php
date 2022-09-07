@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class EventiController extends Controller
 {
-    public function mostraEventi(Request $request)
+    public function lista(Request $request)
     {
         $band = Band::where('user_id', Auth::user()->id)->value('id');
 
@@ -37,8 +37,8 @@ class EventiController extends Controller
         return response()->json($arrayEventi);
     }
 
-    public function creaEvento(Request $request) {
-
+    public function salva(Request $request)
+    {
         $request->validate([
             'nomeEvento' => 'required',
             'idBand' => 'required',
@@ -62,10 +62,9 @@ class EventiController extends Controller
                 'locale_id' => $request->input('locale'),
             ]
         );
-
     }
 
-    public function eliminaEvento(Request $request)
+    public function elimina(Request $request)
     {
         $prova = Evento::whereIn('id', $request)->delete();
     }

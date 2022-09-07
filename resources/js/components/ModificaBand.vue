@@ -74,16 +74,14 @@
                     if (error.response.status == 422) {
                         this.errors = error.response.data.errors
                     }
-                    console.log(this.errors);
                 })
             }
         },
 
         created() {
-            axios.get('/lista-band')
+            axios.get('/band/lista')
                 .then(response => {
                     this.band = response.data[0];
-                    console.log(this.band);
                 });
         },
     });

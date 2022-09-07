@@ -34,7 +34,7 @@ class LocandinaTest extends TestCase
             'dataEvento' => '2022-08-30',
         ]);
 
-        $response = $this->get(route('mostra.locandina'))
+        $response = $this->get(route('locandina.lista'))
                     ->assertSee('Nome evento da testare')
                     ->assertOk();
     }
@@ -58,7 +58,7 @@ class LocandinaTest extends TestCase
             'ora' => '14:36:00',
         ]);
 
-        $response = $this->get(route('mostra.locandina'))
+        $response = $this->get(route('locandina.lista'))
                     ->assertSee('Nome evento da testare')
                     ->assertOk();
     }

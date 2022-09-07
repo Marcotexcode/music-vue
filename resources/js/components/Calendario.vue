@@ -91,7 +91,7 @@ export default {
 
             // Faccio una chiamata get per riprendere il nuovo elenco
             // di locali
-            axios.get('/locale')
+            axios.get('/locale/lista')
             .then(response => {
                 this.locali = response.data;
             });
@@ -106,7 +106,7 @@ export default {
         mostraEventi(info, successCallback) {
             // L'assegnazione destrutturante è una sintassi speciale introdotta in ES6, per assegnare efficacemente dei valori presi da un oggetto.
             const { start, end } = info;
-            axios.get("/eventi", { params: { dataInizio: start, dataFine: end } })
+            axios.get('/evento/lista', { params: { dataInizio: start, dataFine: end } })
             .then(response => {
                 // https://fullcalendar.io/docs/events-function
                 successCallback(response.data)
@@ -178,12 +178,12 @@ export default {
     },
 
     created() {
-        axios.get('/lista-band')
+        axios.get('/band/lista')
             .then(response => {
                 this.band = response.data[0];
             });
 
-        axios.get('/locale')
+        axios.get('/locale/lista')
             .then(response => {
                 this.locali = response.data;
             });

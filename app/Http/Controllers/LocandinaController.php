@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class LocandinaController extends Controller
 {
-    public function index()
+    public function lista()
     {
         $filtriLocandina = session()->get('filtriLocadina');
 
@@ -32,7 +32,7 @@ class LocandinaController extends Controller
         return response()->json($evento);
     }
 
-    public function filtroLocandina(Request $request)
+    public function filtro(Request $request)
     {
         $filtri = [
             'data' => $request->dataEvento,

@@ -15,37 +15,30 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware('can:nonHaUnaBand')->group(function () {
-    Route::view('/band/crea', 'band.create');
-    Route::post('/band/salva', [BandController::class, 'store'])->name('band.salva');
+    Route::get('/band/aggiungi',    [BandController::class, 'aggiungi'])->name('band.aggiungi');
+    Route::post('/band/salva',      [BandController::class, 'salva'])   ->name('band.salva');
 });
 
-// Band
 Route::middleware('can:haUnaBand')->group(function () {
-    Route::get('/lista-band', [BandController::class, 'index'])->name('band.index');
-    Route::post('/band/aggiorna', [BandController::class, 'aggiornaBand'])->name('band.aggiorna');
-});
 
-// Locali
-Route::middleware('can:haUnaBand')->group(function () {
-    Route::get('/locale', [LocaleController::class, 'lista'])->name('locale.lista');
-    Route::post('/locale/salva', [LocaleController::class, 'salva'])->name('locale.salva');
-});
+    // Band
+    Route::get('/band/lista',       [BandController::class, 'lista'])   ->name('band.lista');
+    Route::post('/band/aggiorna',   [BandController::class, 'aggiorna'])->name('band.aggiorna');
 
-// Eventi
-Route::middleware('can:haUnaBand')->group(function () {
-    Route::get('/eventi', [EventiController::class, 'mostraEventi'])->name('evento.mostra');
-    Route::post('/evento/salva', [EventiController::class, 'creaEvento'])->name('evento.crea');
-    Route::delete('/evento/elimina', [EventiController::class, 'eliminaEvento'])->name('evento.elimina');
-});
+    // Locali
+    Route::get('/locale/lista',     [LocaleController::class, 'lista'])->name('locale.lista');
+    Route::post('/locale/salva',    [LocaleController::class, 'salva'])->name('locale.salva');
 
-// Locandina
-Route::middleware('can:haUnaBand')->group(function () {
-    Route::get('locandina/mostra', [LocandinaController::class, 'index'])->name('mostra.locandina');
-    Route::post('locandina/filtro', [LocandinaController::class, 'filtroLocandina'])->name('filtro.locandina');
-});
+    // Eventi
+    Route::get('/evento/lista',         [EventiController::class, 'lista'])   ->name('evento.lista');
+    Route::post('/evento/salva',        [EventiController::class, 'salva'])   ->name('evento.salva');
+    Route::delete('/evento/elimina',    [EventiController::class, 'elimina']) ->name('evento.elimina');
 
-// Rotte vue
-Route::middleware('can:haUnaBand')->group(function () {
+    // Locandina
+    Route::get('/locandina/lista',      [LocandinaController::class, 'lista'])  ->name('locandina.lista');
+    Route::post('/locandina/filtro',    [LocandinaController::class, 'filtro']) ->name('locandina.filtro');
+
+    // Rotte vue
     // Metterlo sempre alla fine di tutte le rotte cosi se l'url non è quello delle altre rotte allora entra in questa
     Route::get('/{any?}', [HomeController::class, 'index'])->where('any', '.*');
 });

@@ -24,7 +24,7 @@ class BandTest extends TestCase
 
         $file = UploadedFile::fake()->image('avatar.jpeg');
 
-        $response = $this->actingAs($utente)->post("/band/salva", [
+        $response = $this->actingAs($utente)->post(route('band.salva'), [
             'nameBand' => 'rockin',
             'phoneBand' => '32455654',
             'image' => $file,
@@ -48,7 +48,7 @@ class BandTest extends TestCase
 
         $file = UploadedFile::fake()->image('avatar.jpeg');
 
-        $response = $this->actingAs($utente)->post("/band/salva", [
+        $response = $this->actingAs($utente)->post(route('band.salva'), [
             'nameBand' => 'rockin',
             'phoneBand' => '32455654',
             'image' => $file,

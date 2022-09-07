@@ -63,7 +63,7 @@
                     dataEvento: this.dataEvento,
                     oraEvento: this.oraEvento,
                 })
-                axios.get('locandina/mostra')
+                axios.get('/locandina/lista')
                 .then(response => {
                     this.locandina = response.data[0]
                     this.oraLocandina = moment(String(this.locandina.ora), 'HH').format('HH:mm')

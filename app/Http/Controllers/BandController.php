@@ -11,14 +11,19 @@ use App\Models\Band;
 
 class BandController extends Controller
 {
-    public function index()
+    public function lista()
     {
         $bands = Band::where('user_id', Auth::user()->id)->get();
 
         return response()->json($bands);
     }
 
-    public function store(Request $request)
+    public function aggiungi()
+    {
+        return view('Band.create');
+    }
+
+    public function salva(Request $request)
     {
         $request->validate([
             'nameBand' => 'required',
@@ -41,7 +46,7 @@ class BandController extends Controller
         return redirect('band');
     }
 
-    public function aggiornaBand(Request $request)
+    public function aggiorna(Request $request)
     {
         $val = $request->validate([
             'name_band' => 'required',
