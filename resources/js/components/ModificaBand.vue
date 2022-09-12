@@ -10,22 +10,22 @@
                             <div class="alert alert-danger"  v-if="errors && errors.image_path">
                                     {{errors.image_path[0]}}
                             </div>
-                            <input type="file" class="form-control" v-on:change="onChange">
-                            <input type="hidden" v-model="band.image_path" class="form-control" id="nameBand">
+                            <input type="file" class="form_input" v-on:change="onChange">
+                            <input type="hidden" v-model="band.image_path" class="form_input" id="nameBand">
                         </div>
                         <div class="form-group my-4">
                             <label for="nameBand"><h3>Nome Band</h3></label>
                             <div class="alert alert-danger" v-if="errors && errors.name_band">
                                     {{errors.name_band[0]}}
                             </div>
-                            <input type="text" v-model="band.name_band" class="form-control" id="nameBand">
+                            <input type="text" v-model="band.name_band" class="form_input" id="nameBand">
                         </div>
                         <div class="form-group">
                             <label for="telefono"><h3>Telefono</h3></label>
                             <div class="alert alert-danger" v-if="errors && errors.phone_band">
                                     {{errors.phone_band[0]}}
                             </div>
-                            <input type="text" v-model="band.phone_band" class="form-control" id="telefono">
+                            <input type="text" v-model="band.phone_band" class="form_input" id="telefono">
                         </div>
                         <button class="btn btn-dark mt-5">Modifica</button>
                     </div>

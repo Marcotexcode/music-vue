@@ -20529,9 +20529,9 @@ textarea.form-control-lg {
   }
 }
 .glass {
-  background-color: rgba(250, 250, 250, 0.17);
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
+  background-color: rgba(250, 250, 250, 0.17) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+          backdrop-filter: blur(5px) !important;
 }
 
 .bord {
@@ -20540,4 +20540,23 @@ textarea.form-control-lg {
 
 .img-band {
   width: 30%;
+}
+
+.form_input {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: rgba(250, 250, 250, 0.17);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.color_text_label {
+  color: #3c3c3c;
+  font-size: 20px;
 }

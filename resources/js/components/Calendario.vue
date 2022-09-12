@@ -1,11 +1,11 @@
 
 <template>
-    <div class="container glass rounded mt-5 glass p-5">
-        <FullCalendar ref="fullCalendar" :options="calendarOptions" />
+    <div class="container mt-5 p-5">
+        <FullCalendar ref="fullCalendar" :options="calendarOptions" class="dimensione_calendario rounded" />
         <div>
-            <b-modal ref="my-modal" hide-footer :title="band.name_band">
+            <b-modal class="glass" ref="my-modal" hide-footer :title="band.name_band">
                 <form @submit.prevent="creaEvento">
-                    <div class="form-group">
+                    <div class="form-group glass">
                         <!-- Nome Evento -->
                         <label for="exampleInputEmail1">Titolo evento</label>
                         <div id="errorenomeEvento"></div>
@@ -33,7 +33,7 @@
                         <span class="text" v-if="idEvento">Modifica Evento</span>
                     </button>
                 </form>
-                <button class="btn btn-success" @click="show = !show">Aggiungi Locale</button>
+                <button class="btn btn-secondary mt-1" @click="show = !show">Aggiungi Locale</button>
                 <button class="btn btn-danger mt-1" v-if="idEvento" @click="eliminaEvento(idEvento)">Elimina evento</button>
                 <Transition>
                     <CreaLocale v-if="show" :idBand="band.id" @showFalse="chiudiFormLocale"/>
@@ -41,6 +41,7 @@
             </b-modal>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -81,6 +82,7 @@ export default {
                 dateClick: this.aggiungiEvento,
                 eventClick: this.modificaEvento,
             },
+
         }
     },
     methods: {
@@ -193,6 +195,22 @@ export default {
 
 
 <style lang="css">
+
+    .dimensione_calendario {
+        width: 1100px;
+        padding: 30px;
+        background-color: rgb(250 250 250 / 17%);
+        backdrop-filter: blur(5px);
+    }
+
+    .fc-daygrid-body,
+    .fc-daygrid-body-balanced {
+        width: 100%;
+    }
+    .fc-scrollgrid-sync-table {
+        width: 100%;
+    }
+
     .fc-daygrid-day-number {
         color: black;
         text-decoration: none;

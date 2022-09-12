@@ -6,11 +6,11 @@
                 <form @submit.prevent="filtroLocandina">
                     <div class="form-group">
                         <label for="data-evento">Data</label>
-                        <input type="date" v-model="dataEvento" class="form-control" id="data-evento">
+                        <input type="date" v-model="dataEvento" class="form_input" id="data-evento">
                     </div>
                     <div class="form-group">
                         <label for="ora-evento">Ora</label>
-                        <input type="time" v-model="oraEvento" class="form-control" id="ora-evento">
+                        <input type="time" v-model="oraEvento" class="form_input" id="ora-evento">
                         <button type="submit" class="btn btn-dark mt-3">Cerca</button>
                     </div>
                 </form>
