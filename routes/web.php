@@ -19,6 +19,7 @@ Route::middleware('can:nonHaUnaBand')->group(function () {
     Route::post('/band/salva',      [BandController::class, 'salva'])   ->name('band.salva');
 });
 
+
 Route::middleware('can:haUnaBand')->group(function () {
 
     // Band
