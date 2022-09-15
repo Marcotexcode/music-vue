@@ -23,7 +23,7 @@
                         <!-- Locale -->
                         <label for="exampleInputEmail1">Locale</label>
                         <div id="errorelocale"></div>
-                        <select class="form-select" v-model="locale" aria-label="Default select example">
+                        <select class="form-select" @click="show = false" v-model="locale" aria-label="Default select example">
                             <option selected :value="null">Nuovo</option>
                             <option v-for="locale in locali" :key="locale.id" :value="locale.id">{{ locale.nome}}</option>
                         </select>
@@ -36,7 +36,7 @@
                 <div class="row mt-2">
                     <div class="col-12 d-flex justify-content-between">
                         <button class="btn btn-danger mt-1" v-if="idEvento" @click="eliminaEvento(idEvento)">Elimina evento</button>
-                        <button class="btn btn-success" @click="show = !show">Aggiungi / Modifica Locale</button>
+                        <button class="btn btn-success" @click="show = !show">Apri form locale</button>
                     </div>
                 </div>
                 <Transition>
@@ -187,12 +187,11 @@ export default {
         .then(response => {
             this.band = response.data[0];
         });
-    },
 
-    mounted() {
+        // Lista locali per la select
         axios.get('/locale/lista')
-        .then(response => {
-            this.locali = response.data;
+        .then(resp => {
+            this.locali = resp.data;
         });
     },
 

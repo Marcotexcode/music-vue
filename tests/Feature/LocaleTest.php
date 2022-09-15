@@ -20,7 +20,7 @@ class LocaleTest extends TestCase
 
         $band = Band::factory()->create([ 'user_id' => $utente->id ]);
 
-        $response = $this->actingAs($utente)->post(route('locale.salva'), [
+        $response = $this->actingAs($utente)->post(route('locale.salva-modifica'), [
             'nome' => 'Mamiwata',
             'indirizzo' => 'via delle caserme',
             'provincia' => 'Pescara',
@@ -53,7 +53,7 @@ class LocaleTest extends TestCase
 
         $band = Band::factory()->create([ 'user_id' => $utente->id ]);
 
-        $response = $this->actingAs($utente)->post(route('locale.salva'), [
+        $response = $this->actingAs($utente)->post(route('locale.salva-modifica'), [
             'nome' => 'Mamiwata',
             'indirizzo' => '',
             'provincia' => '',
@@ -66,4 +66,15 @@ class LocaleTest extends TestCase
 
         $response->assertSessionHasErrors();
     }
+
+    public function test_modifica_locale()
+    {
+
+    }
+
+    public function test_elimina_locale()
+    {
+
+    }
+
 }
