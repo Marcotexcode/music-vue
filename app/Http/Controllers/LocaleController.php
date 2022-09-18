@@ -41,6 +41,7 @@ class LocaleController extends Controller
         // Aggiungere validazione
         $eventi = Evento::where('locale_id', $request->idLocale)->get();
 
+
         $elencoEventi = [];
 
         foreach ($eventi as $evento) {
@@ -68,7 +69,7 @@ class LocaleController extends Controller
     private function validaSalvaModifica(Locale $locale, Request $request)
 	{
         $rules = [
-			'nome'      => 'required',
+            'nome'      => 'required',
             'indirizzo' => 'required',
             'provincia' => 'required',
             'cap'       => 'required',

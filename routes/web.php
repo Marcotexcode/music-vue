@@ -26,10 +26,10 @@ Route::middleware('can:haUnaBand')->group(function () {
     Route::post('/band/aggiorna',   [BandController::class, 'aggiorna'])->name('band.aggiorna');
 
     // Locali
-    Route::get('/locale/lista',     [LocaleController::class, 'lista'])->name('locale.lista');
-    Route::post('/locale/salva-modifica',    [LocaleController::class, 'salvaModifica'])->name('locale.salva-modifica');
-    Route::get('/locale/modifica',    [LocaleController::class, 'modifica'])->name('locale.modifica');
-    Route::delete('/locale/elimina',    [LocaleController::class, 'elimina'])->name('locale.elimina');
+    Route::get('/locale/lista',             [LocaleController::class, 'lista'])         ->name('locale.lista');
+    Route::post('/locale/salva-modifica',   [LocaleController::class, 'salvaModifica']) ->name('locale.salva-modifica');
+    Route::get('/locale/modifica',          [LocaleController::class, 'modifica'])      ->name('locale.modifica');
+    Route::delete('/locale/elimina',        [LocaleController::class, 'elimina'])       ->name('locale.elimina');
 
 
     // Eventi
