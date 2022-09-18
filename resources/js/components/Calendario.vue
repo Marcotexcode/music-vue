@@ -23,8 +23,8 @@
                         <!-- Locale -->
                         <label for="exampleInputEmail1">Locale</label>
                         <div id="errorelocale"></div>
-                        <select class="form-select" v-model="locale" aria-label="Default select example">
-                            <option selected>Scegli</option>
+                        <select class="form-select" @click="show = false" v-model="locale" aria-label="Default select example">
+                            <option selected :value="null">Nuovo</option>
                             <option v-for="locale in locali" :key="locale.id" :value="locale.id">{{ locale.nome}}</option>
                         </select>
                     </div>
@@ -33,10 +33,14 @@
                         <span class="text" v-if="idEvento">Modifica Evento</span>
                     </button>
                 </form>
-                <button class="btn btn-success" @click="show = !show">Aggiungi Locale</button>
-                <button class="btn btn-danger mt-1" v-if="idEvento" @click="eliminaEvento(idEvento)">Elimina evento</button>
+                <div class="row mt-2">
+                    <div class="col-12 d-flex justify-content-between">
+                        <button class="btn btn-danger mt-1" v-if="idEvento" @click="eliminaEvento(idEvento)">Elimina evento</button>
+                        <button class="btn btn-success" @click="show = !show">Apri form locale</button>
+                    </div>
+                </div>
                 <Transition>
-                    <CreaLocale v-if="show" :idBand="band.id" @showFalse="chiudiFormLocale"/>
+                    <CreaLocale v-if="show" :idBand="band.id" :datiLocale="datiLocale" @showFalse="chiudiFormLocale"/>
                 </Transition>
             </b-modal>
         </div>
@@ -64,6 +68,7 @@ export default {
             oraEvento: '',
             compenso: '',
             locale: '',
+            datiLocale: '',
             show: '',
             band:[],
             locali:[],
@@ -179,15 +184,20 @@ export default {
 
     created() {
         axios.get('/band/lista')
-            .then(response => {
-                this.band = response.data[0];
-            });
+        .then(response => {
+            this.band = response.data[0];
+        });
 
+        // Lista locali per la select
         axios.get('/locale/lista')
-            .then(response => {
-                this.locali = response.data;
-            });
+        .then(resp => {
+            this.locali = resp.data;
+        });
     },
+
+    updated() {
+        this.datiLocale = this.locale;
+    }
 }
 </script>
 
