@@ -41,7 +41,6 @@ class LocaleController extends Controller
         // Aggiungere validazione
         $eventi = Evento::where('locale_id', $request->idLocale)->get();
 
-
         $elencoEventi = [];
 
         foreach ($eventi as $evento) {
