@@ -22,7 +22,7 @@ class EventiController extends Controller
             $date = new DateTime($mostraEvento->ora);
 
             $aggiuntaArrayEventi = [];
-            $aggiuntaArrayEventi['title'] = /* $date->format('H:i') . ' ' . */ $mostraEvento->nome_evento;
+            $aggiuntaArrayEventi['title'] = $mostraEvento->nome_evento;
             $aggiuntaArrayEventi['idEvento'] = $mostraEvento->id;
             $aggiuntaArrayEventi['oraEvento'] = $mostraEvento->ora;
             $aggiuntaArrayEventi['compenso'] = $mostraEvento->compenso;
