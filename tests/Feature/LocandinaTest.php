@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
@@ -13,7 +13,7 @@ use App\Models\Locale;
 
 class LocandinaTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     public function test_filtro_data()
     {
@@ -24,10 +24,10 @@ class LocandinaTest extends TestCase
         $locale = Locale::factory()->create([ 'band_id' => $band->id ]);
 
         $evento = Evento::factory()->create([
-            'nome_evento' => 'Nome evento da testare',
-            'data_evento' => '2022-08-30',
-            'band_id' => $band->id,
-            'locale_id' => $locale->id,
+            'nome_evento'   => 'Nome evento da testare',
+            'data_evento'   => '2022-08-30',
+            'band_id'       => $band->id,
+            'locale_id'     => $locale->id,
         ]);
 
         $response = $this->actingAs($utente)->post('locandina/filtro', [
@@ -48,10 +48,10 @@ class LocandinaTest extends TestCase
         $locale = Locale::factory()->create([ 'band_id' => $band->id ]);
 
         $evento = Evento::factory()->create([
-            'nome_evento' => 'Nome evento da testare',
-            'ora' => '14:36:00',
-            'band_id' => $band->id,
-            'locale_id' => $locale->id,
+            'nome_evento'   => 'Nome evento da testare',
+            'ora'           => '14:36:00',
+            'band_id'       => $band->id,
+            'locale_id'     => $locale->id,
         ]);
 
         $response = $this->actingAs($utente)->post('locandina/filtro', [

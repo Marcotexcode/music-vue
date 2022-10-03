@@ -1,6 +1,21 @@
 
 <template>
-    <div class="container mt-5 p-5">
+    <div class="container mt-4 px-5">
+        <div class="">
+            <div class="dimensione_calendario mb-2 rounded d-flex">
+                <div>
+                    <form class="d-flex" @submit.prevent="filtroEliminaEvento">
+                        <label class="h5" for=""> Elimina eventi da </label>
+                        <input class="form_input mx-2 larghezza_input" v-model="dataDa" type="date">
+                        <label class="h5" for="">a</label>
+                        <input class="form_input mx-2 larghezza_input" v-model="dataA" type="date">
+                        <button class="btn btn-dark">Elimina</button>
+                    </form>
+                </div>
+
+                <div id="eventoSuccess"></div>
+            </div>
+        </div>
         <FullCalendar ref="fullCalendar" :options="calendarOptions" class="dimensione_calendario rounded" />
         <div>
             <b-modal class="glass" ref="my-modal" hide-footer :title="band.name_band">
@@ -64,6 +79,8 @@ export default {
     data() {
         return {
             idEvento: '',
+            dataDa: '',
+            dataA: '',
             dataCella: '',
             titoloEvento: '',
             oraEvento: '',
@@ -182,6 +199,21 @@ export default {
             this.compenso = info.event.extendedProps.compenso
             this.locale = info.event.extendedProps.locale
         },
+
+        filtroEliminaEvento(){
+            axios.post('/evento/filtro', {
+                da: this.dataDa,
+                a: this.dataA
+            })
+            .then(response => {
+                eventoSuccess.innerHTML +=  `<div class="alert alert-success p-2 mx-4 alert-dismissible fade show" role="alert">
+                                                <span> evento eliminato correttamente </span>
+                                                <button type="button" class="btn" data-bs-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                                            </div>`
+                // https://fullcalendar.io/docs/Calendar-refetchEvents
+                this.$refs.fullCalendar.getApi().refetchEvents()
+            }) .catch()
+        }
     },
 
     created() {
@@ -211,6 +243,10 @@ export default {
         padding: 30px;
         background-color: rgb(250 250 250 / 17%);
         backdrop-filter: blur(5px);
+    }
+
+    .larghezza_input {
+        width: 200px;
     }
 
     .fc-daygrid-body,

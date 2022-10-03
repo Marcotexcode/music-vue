@@ -37,6 +37,7 @@ Route::middleware('can:haUnaBand')->group(function () {
     Route::get('/evento/lista',         [EventiController::class, 'lista'])   ->name('evento.lista');
     Route::post('/evento/salva',        [EventiController::class, 'salva'])   ->name('evento.salva');
     Route::delete('/evento/elimina',    [EventiController::class, 'elimina']) ->name('evento.elimina');
+    Route::post('/evento/filtro',    [EventiController::class, 'filtroEvento']) ->name('evento.filtro');
 
     // Locandina
     Route::get('/locandina/lista',      [LocandinaController::class, 'lista'])  ->name('locandina.lista');

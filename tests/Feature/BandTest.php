@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class BandTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     public function test_utente_che_non_ha_una_band_può_creare_band()
     {
@@ -25,16 +25,16 @@ class BandTest extends TestCase
         $file = UploadedFile::fake()->image('avatar.jpeg');
 
         $response = $this->actingAs($utente)->post(route('band.salva'), [
-            'nameBand' => 'rockin',
+            'nameBand'  => 'rockin',
             'phoneBand' => '32455654',
-            'image' => $file,
+            'image'     => $file,
         ]);
 
         $this->assertDatabaseHas('band', [
-            'name_band' => 'rockin',
-            'phone_band' => '32455654',
-            'user_id' => $utente->id,
-            'image_path' => 'immagine_band/' . $file->hashName(),
+            'name_band'     => 'rockin',
+            'phone_band'    => '32455654',
+            'user_id'       => $utente->id,
+            'image_path'    => 'immagine_band/' . $file->hashName(),
         ]);
     }
 
@@ -49,16 +49,16 @@ class BandTest extends TestCase
         $file = UploadedFile::fake()->image('avatar.jpeg');
 
         $response = $this->actingAs($utente)->post(route('band.salva'), [
-            'nameBand' => 'rockin',
+            'nameBand'  => 'rockin',
             'phoneBand' => '32455654',
-            'image' => $file,
+            'image'     => $file,
         ]);
 
         $this->assertDatabaseMissing('band', [
             'name_band' => 'rockin',
-            'phone_band' => '32455654',
-            'user_id' => $utente->id,
-            'image_path' => 'immagine_band/' . $file->hashName(),
+            'phone_band'=> '32455654',
+            'user_id'   => $utente->id,
+            'image_path'=> 'immagine_band/' . $file->hashName(),
         ]);
     }
 
@@ -75,25 +75,25 @@ class BandTest extends TestCase
 
         $recordBand = Band::factory()->create([
             'name_band' => 'Pippo Band',
-            'phone_band' => '4335654',
-            'user_id' => $utente->id,
-            'image_path' => 'immagine_band/' . $file->hashName(),
+            'phone_band'=> '4335654',
+            'user_id'   => $utente->id,
+            'image_path'=> 'immagine_band/' . $file->hashName(),
         ]);
 
         $response = $this->actingAs($utente)->post("/band/aggiorna", [
-            'img_vecchia' => 'immagine_band/' . $file->hashName(),
-            'idBand' => $recordBand->id,
-            'name_band' => 'Pluto Band',
-            'phone_band' => '4335654',
-            'user_id' => $utente->id,
-            'image_path' => $file,
+            'img_vecchia'   => 'immagine_band/' . $file->hashName(),
+            'idBand'        => $recordBand->id,
+            'name_band'     => 'Pluto Band',
+            'phone_band'    => '4335654',
+            'user_id'       => $utente->id,
+            'image_path'    => $file,
         ]);
 
         $this->assertDatabaseHas('band', [
-            'id' => $recordBand->id,
+            'id'        => $recordBand->id,
             'name_band' => 'Pluto Band',
-            'phone_band' => '4335654',
-            'user_id' => $utente->id,
+            'phone_band'=> '4335654',
+            'user_id'   => $utente->id,
         ]);
     }
 
@@ -111,18 +111,18 @@ class BandTest extends TestCase
 
         $recordBand = Band::factory()->create([
             'name_band' => 'Pippo Band',
-            'phone_band' => '4335654',
-            'user_id' => $utente->id,
-            'image_path' => $immagineVecchia,
+            'phone_band'=> '4335654',
+            'user_id'   => $utente->id,
+            'image_path'=> $immagineVecchia,
         ]);
 
         $response = $this->actingAs($utente)->post("/band/aggiorna", [
-            'img_vecchia' => UploadedFile::fake()->image('vecchia.jpeg'),
-            'idBand' => $recordBand->id,
-            'name_band' => 'Pluto Band',
-            'phone_band' => '4335654',
-            'user_id' => $utente->id,
-            'image_path' => $immagineNuova,
+            'img_vecchia'   => UploadedFile::fake()->image('vecchia.jpeg'),
+            'idBand'        => $recordBand->id,
+            'name_band'     => 'Pluto Band',
+            'phone_band'    => '4335654',
+            'user_id'       => $utente->id,
+            'image_path'    => $immagineNuova,
         ]);
 
         Storage::disk('test_immagine')->assertExists("immagine_band/{$immagineNuova->hashName()}");
