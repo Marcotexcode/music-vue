@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventiController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\LocandinaController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,6 +22,9 @@ Route::middleware('can:nonHaUnaBand')->group(function () {
 
 
 Route::middleware('can:haUnaBand')->group(function () {
+
+    Route::post('/logout', [UserController::class, 'logout']);
+
 
     // Band
     Route::get('/band/lista',       [BandController::class, 'lista'])   ->name('band.lista');
