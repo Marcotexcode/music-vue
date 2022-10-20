@@ -57,9 +57,10 @@
         <div class="profile_content">
             <div class="profile">
                 <div class="profile_details">
-                        <img src="https://d19wu2mwi84gij.cloudfront.net/speaker/image/default_placeholder.jpg" alt="">
+
+                    <img :src="'/storage/' + utente.img_profilo" alt="">
                     <div class="name_job">
-                        <div class="name"></div>
+                        <div class="name">{{utente.name}}</div>
                         <div class="job">Tipo amministratore</div>
                     </div>
                 </div>
@@ -79,6 +80,7 @@
         data() {
             return {
                 isActive: false,
+                utente: ''
             }
         },
         methods: {
@@ -91,8 +93,17 @@
             logout() {
                 axios.post('/logout')
                     .then(() => location.href = '/')
-            }
-        }
+            },
+            getUser() {
+                axios.get('/sidebar/lista')
+                .then(response => {
+                   this.utente = response.data[0];
+                });
+            },
+        },
+        created(){
+            this.getUser()
+        },
     })
 
 </script>

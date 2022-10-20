@@ -8,7 +8,7 @@
                 <div class="card-header color_text_label glass">{{ __('Register') }}</div>
 
                 <div class="card-body glass">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 color_text_label text-md-end">{{ __('Name') }}</label>
@@ -57,6 +57,19 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form_input" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="name" class="col-md-4 col-form-label text-md-end">Immagine Profilo Utente</label>
+                            <div class="col-md-6">
+                                <input type="file"  name="image" value="{{ old('name') }}">
+
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 

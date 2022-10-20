@@ -8,6 +8,7 @@ use App\Http\Controllers\EventiController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\LocandinaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SidebarController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -46,6 +47,10 @@ Route::middleware('can:haUnaBand')->group(function () {
     // Locandina
     Route::get('/locandina/lista',      [LocandinaController::class, 'lista'])  ->name('locandina.lista');
     Route::post('/locandina/filtro',    [LocandinaController::class, 'filtro']) ->name('locandina.filtro');
+
+    // Sidebar
+    Route::get('/sidebar/lista',    [SidebarController::class, 'lista']) ->name('locandina.lista');
+
 
     // Rotte vue
     // Metterlo sempre alla fine di tutte le rotte cosi se l'url non è quello delle altre rotte allora entra in questa

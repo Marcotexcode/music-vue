@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -66,11 +67,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $img = null;
+
+        // Salvo l'immagine
+        if (isset($data['image'])) {
+            $img = Storage::put('immagine_profilo', $data['image']);
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'hasBand' => User::NON_HA_UNA_BAND,
+            'img_profilo' => $img,
         ]);
     }
 }
