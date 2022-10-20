@@ -27,7 +27,8 @@ class AggiuntaCampoLocaleIdNellaTabellaEventi extends Migration
     public function down()
     {
         Schema::table('eventi', function (Blueprint $table) {
-            $table->dropColumn('locale_id')->unsigned()->after('band_id');
+            $table->dropForeign(['locale_id']);
+            $table->dropColumn('locale_id');
         });
     }
 }
