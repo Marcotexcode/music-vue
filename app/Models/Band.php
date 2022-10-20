@@ -11,12 +11,12 @@ class Band extends Model
 
     protected $table = 'band';
 
-    protected $fillable = [
-        'name_band',
-        'phone_band',
-        'user_id',
-        'image_path'
-    ];
+    /**
+	 * @inheritDoc
+	 *
+	 * @var array
+	 */
+	protected $guarded = [];
 
     public function user()
     {

@@ -11,13 +11,11 @@ class Evento extends Model
 
     protected $table = 'eventi';
 
-    protected $fillable = [
-        'nome_evento',
-        'data_evento',
-        'band_id',
-        'ora',
-        'compenso',
-        'locale_id',
-    ];
+    /**
+	 * @inheritDoc
+	 *
+	 * @var array
+	 */
+	protected $guarded = [];
 
 }

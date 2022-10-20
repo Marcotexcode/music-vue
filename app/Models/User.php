@@ -17,16 +17,11 @@ class User extends Authenticatable
     const HA_UNA_BAND      = 1; // Se ha già una band non può crearne un'altra
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'hasBand',
-    ];
+	 * @inheritDoc
+	 *
+	 * @var array
+	 */
+	protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.

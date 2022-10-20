@@ -11,14 +11,10 @@ class Locale extends Model
 
     protected $table = 'locale';
 
-    protected $fillable = [
-        'nome',
-        'indirizzo',
-        'provincia',
-        'cap',
-        'regione',
-        'telefono',
-        'tipo',
-        'band_id',
-    ];
+    /**
+	 * @inheritDoc
+	 *
+	 * @var array
+	 */
+	protected $guarded = [];
 }
