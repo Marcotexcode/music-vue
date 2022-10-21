@@ -14,59 +14,30 @@
         </div>
         <ul class="nav_list">
             <li>
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search...">
-                <span class="tool_tip">Search</span>
+                <form action="" method="post" @submit.prevent="getPagine">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" v-model="filtroPagine"  placeholder="Search...">
+                    <span class="tool_tip">Search</span>
+                </form>
             </li>
-            <li>
-                <router-link :to="{name: 'home'}" class="text link">
-                    <i class="fa-solid fa-house"></i>
-                    <span class="links_name">Home</span>
+            <li v-for="listaPagina in listaPagine" :key="listaPagina">
+                <router-link :to="{name: listaPagina.link}" class="text link">
+                    <i :class="listaPagina.font"></i>
+                    <span class="links_name">{{listaPagina.name}}</span>
                 </router-link>
-                <span class="tool_tip">Home</span>
-            </li>
-            <li>
-                <router-link :to="{name: 'calendario'}" class="text link">
-                    <i class="fa-solid fa-calendar"></i>
-                    <span class="links_name">Calendario</span>
-                </router-link>
-                <span class="tool_tip">Calendario</span>
-            </li>
-            <li>
-                <router-link :to="{name: 'band'}" class="text link">
-                    <i class="fa-solid fa-music"></i>
-                    <span class="links_name">Band</span>
-                </router-link>
-                <span class="tool_tip">Band</span>
-            </li>
-            <li>
-                <router-link :to="{name: 'locandina'}" class="text link">
-                    <i class="fa-solid fa-eye"></i>
-                    <span class="links_name">Locandina</span>
-                </router-link>
-                <span class="tool_tip">Locandina</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-user"></i>
-                    <span class="links_name">Utente</span>
-                </a>
-                <span class="tool_tip">Utente</span>
+                <span class="tool_tip">{{listaPagina.toll}}</span>
             </li>
         </ul>
         <div class="profile_content">
             <div class="profile">
                 <div class="profile_details">
-
                     <img :src="'/storage/' + utente.img_profilo" alt="">
                     <div class="name_job">
                         <div class="name">{{utente.name}}</div>
                         <div class="job">Tipo amministratore</div>
                     </div>
                 </div>
-
                 <a @click="logout"><i class="fa-solid fa-arrow-right-from-bracket" id="log_out"></i></a>
-
             </div>
         </div>
     </div>
@@ -80,7 +51,9 @@
         data() {
             return {
                 isActive: false,
-                utente: ''
+                utente: '',
+                filtroPagine: '',
+                listaPagine: []
             }
         },
         methods: {
@@ -95,14 +68,25 @@
                     .then(() => location.href = '/')
             },
             getUser() {
-                axios.get('/sidebar/lista')
+                axios.get('/sidebar/lista-utente')
                 .then(response => {
                    this.utente = response.data[0];
+                });
+            },
+            getPagine() {
+                axios.post('/sidebar/filtro', {
+                    filtroPagine: this.filtroPagine,
+                });
+
+                axios.get('/sidebar/lista-pagine')
+                .then(response => {
+                   this.listaPagine = response.data
                 });
             },
         },
         created(){
             this.getUser()
+            this.getPagine()
         },
     })
 
